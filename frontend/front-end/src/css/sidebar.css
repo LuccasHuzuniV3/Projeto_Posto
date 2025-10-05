@@ -1,0 +1,83 @@
+/* src/css/sidebar.css */
+
+/* Estilos gerais da sidebar (pode copiar do seu original se preferir) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  background-color: #2b2b2b;
+
+  color: #E2E8F0;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Montserrat', sans-serif;
+}
+/* ... (outros estilos como sidebar-logo, etc., podem ser mantidos) ... */
+.sidebar-logo { display: flex; align-items: center; margin-bottom: 40px; }
+.logo-icon { color: #E53E3E; margin-right: 12px; }
+.logo-text { font-size: 22px; font-weight: 700; letter-spacing: 1px; }
+.logo-text-highlight { color: #38B2AC; margin-left: 5px; }
+.nav-section { margin-top: 30px; }
+.section-title { font-size: 14px; font-weight: 700; text-transform: uppercase; color: #A0AEC0; margin-bottom: 12px; letter-spacing: 0.5px; }
+
+/* --- REGRAS IMPORTANTES E SIMPLIFICADAS ABAIXO --- */
+
+/* Estilo do link principal do Dashboard */
+.nav-link-dashboard {
+  display: flex; align-items: center; padding: 12px; border-radius: 8px;
+  color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 18px;
+  transition: background-color 0.2s;
+}
+.nav-link-dashboard.active {
+  background-color: #4A5568; /* Fundo cinza só quando ATIVO */
+}
+.nav-link-dashboard:not(.active):hover {
+  background-color: #3a475a; /* Hover sutil só quando NÃO está ativo */
+}
+.nav-link-dashboard svg { margin-right: 16px; }
+
+/* Lista de links comuns */
+.nav-list {
+  list-style-type: none;
+  padding-left: 10px;
+  margin: 0;
+}
+.nav-list li {
+  margin-bottom: 4px;
+  background: transparent !important;
+}
+
+/* Estilo base para os links comuns */
+.link-item {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  color: #E2E8F0;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 6px;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+/* Estilo do link QUANDO ESTÁ ATIVO */
+.link-item-ativo {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 6px;
+  transition: color 0.2s, background-color 0.2s;
+  
+  /* Destaque do link ativo */
+  background-color: #4A5568;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+/* Efeito de HOVER (passar o mouse) só para links que NÃO estão ativos */
+.link-item:hover {
+  background-color: #3a475a;
+  color: #FFFFFF;
+}

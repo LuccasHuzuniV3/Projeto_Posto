@@ -1,0 +1,101 @@
+/* src/css/FornecedorCard.css - VERSÃO REFINADA */
+
+.fornecedor-card {
+  background-color: #ffffff;
+  border: 1px solid #EDF2F7; /* Borda mais sutil, da cor do fundo */
+  border-radius: 8px;
+  
+  /* --- ALTERAÇÕES AQUI --- */
+  padding: 16px; /* Padding interno reduzido */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra bem mais suave */
+
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.fornecedor-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra um pouco mais forte no hover */
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e2e8f0;
+
+  /* --- ALTERAÇÕES AQUI --- */
+  padding-bottom: 8px;
+  margin-bottom: 2px;
+}
+
+.fornecedor-nome {
+  /* --- ALTERAÇÕES AQUI --- */
+  font-size: 16px; /* Fonte do nome ligeiramente menor */
+  font-weight: 600; /* Um pouco menos "pesado" que o 700 */
+  color: #2D3748;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espaço menor entre os botões */
+}
+
+/* Regra única e específica para o status DENTRO do card */
+.fornecedor-card .status {
+  padding: 3px 10px; /* Pílula de status menor */
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 11px; /* Fonte menor */
+  text-transform: uppercase;
+}
+
+.fornecedor-card .status.ativo {
+  background-color: #C6F6D5;
+  color: #22543D;
+}
+
+.fornecedor-card .status.inativo {
+  background-color: #FED7D7;
+  color: #742A2A;
+}
+
+.edit-button {
+  background-color: #4A5568;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px; /* Bordas um pouco menos arredondadas */
+  
+  /* --- ALTERAÇÕES AQUI --- */
+  padding: 4px 12px;
+  font-weight: 600;
+  font-size: 13px; /* Botão geral menor */
+  
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.edit-button:hover {
+  background-color: #2D3748;
+}
+
+.card-body {
+  background: none;
+}
+
+.card-body p {
+  margin: 4px 0;
+  color: #4A5568;
+  
+  /* --- ALTERAÇÕES AQUI --- */
+  font-size: 13px; /* Fonte dos detalhes menor */
+  line-height: 1.5;
+}
+
+.card-body p strong {
+  color: #2D3748;
+  display: inline-block;
+  min-width: 75px; /* Largura mínima dos títulos ajustada */
+}
