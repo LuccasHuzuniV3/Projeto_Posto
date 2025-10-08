@@ -1,83 +1,39 @@
-// src/pages/ListaUsuarios.jsx
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./components/login";
+import Dashboard from "./pages/dashboard";
+import ListaFornecedores from "./pages/listarFornecedores";
+import Layout from "./pages/Layout";
+import CadastroFornecedor from "./pages/cadastroFornecedor"; 
+import EditarFornecedor from "./pages/editarFornecedor";
+import SimularCompra from "./pages/simularCompra"
+import HistoricoCompras from "./pages/historicocompras";
+import ListaUsuarios from "./pages/ListaUsuarios"
 
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaPlus } from 'react-icons/fa';
-import { toast } from 'react-toastify';
-import { getUsers } from '../src/services/apiConfiguracao'; 
 
-// Vamos criar este CSS a seguir
-import '../css/lista-usuarios.css';
+import "./css/app.css";
 
-const ListaUsuarios = () => {
-  const navigate = useNavigate();
-  
-  const [usuarios, setUsuarios] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  // Efeito para buscar os usuários quando a página carregar
-  useEffect(() => {
-    const carregarUsuarios = async () => {
-      try {
-        const data = await getUsers();
-        setUsuarios(data);
-      } catch (err) {
-        setError('Não foi possível carregar a lista de usuários.');
-        toast.error('Não foi possível carregar a lista de usuários.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    carregarUsuarios();
-  }, []);
-
-  if (loading) {
-    return <div className="feedback-container"><div className="loading-spinner"></div></div>;
-  }
-
-  if (error) {
-    return <div className="feedback-container"><p style={{ color: 'red' }}>{error}</p></div>;
-  }
-
+function App() {
   return (
-    <div className="container-fornecedores"> {/* Reutilizando o estilo do container */}
-      <header className="page-header">
-        <div>
-          <h1 className="page-title">GERENCIAR USUÁRIOS</h1>
-          <p className="page-subtitle">Crie e gerencie os usuários do sistema.</p>
-        </div>
-        <button className="add-button" onClick={() => navigate('/usuarios/criar')}>
-          <FaPlus />
-          Novo Usuário
-        </button>
-      </header>
-      
-      <main>
-        <table className="users-table">
-          <thead>
-            <tr>
-              <th>Email</th>
-              <th>Papel (Role)</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {usuarios.map((usuario) => (
-              <tr key={usuario.id}>
-                <td>{usuario.email}</td>
-                <td>{usuario.role}</td>
-                <td>
-                  <button className="edit-button-table">Editar</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </main>
-    </div>
-  );
-};
+    <Router>
+      <Routes>
+        {/* Rotas públicas (sem sidebar) */}
+        <Route path="/" element={<Login />} />
 
-export default ListaUsuarios;
+        {/* Rotas privadas (com sidebar fixa) */}
+        <Route path="/dashboard"element={<Layout><Dashboard /></Layout>}/>
+        <Route path="/fornecedor/listar" element={<Layout><ListaFornecedores /></Layout>} />
+        <Route path="/fornecedores/cadastrar" element={<Layout><CadastroFornecedor /></Layout>} />
+        <Route path="/fornecedores/editar/:id" element={<Layout><EditarFornecedor /></Layout>} />
+        <Route path="/compras" element={<Layout><HistoricoCompras/></Layout>} />
+        <Route path="/simulador/compra" element={<Layout><SimularCompra/></Layout>} />
+
+        {/*configuracao*/ }
+        <Route path="/configuracao" element={<Layout> <ListaUsuarios/> </Layout>} />
+        {/* <Route path="/usuarios/criar" element={<CriarUsuario />} /> */}
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;

@@ -107,7 +107,7 @@ const Sidebar = () => {
           <h2 className="section-title">Configurações</h2>
           <ul className="nav-list">
             <li>
-              <NavLink to="/configuracoes" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
+              <NavLink to="/configuracao" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
                 Configurações
               </NavLink>
             </li>

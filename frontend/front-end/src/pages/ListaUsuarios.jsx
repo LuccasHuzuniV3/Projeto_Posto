@@ -1,13 +1,11 @@
-// src/pages/ListaUsuarios.jsx
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { getUsers } from '../services/apiUsuario'; // Importando a função da API
+import { getUsers } from '../services/apiConfiguracao'; // Importando a função da API
+import '../css/listauser.css'
 
-// Vamos criar este CSS a seguir
-import '../css/ListaUsuarios';
 
 const ListaUsuarios = () => {
   const navigate = useNavigate();
