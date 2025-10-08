@@ -102,6 +102,17 @@ const Sidebar = () => {
             </li>
           </ul>
         </div>
+              {/* Seção do Simulador */}
+        <div className="nav-section">
+          <h2 className="section-title">Configurações</h2>
+          <ul className="nav-list">
+            <li>
+              <NavLink to="/configuracoes" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
+                Configurações
+              </NavLink>
+            </li>
+          </ul>
+        </div>
         
       </nav>
     </aside>

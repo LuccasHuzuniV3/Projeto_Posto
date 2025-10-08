@@ -20,7 +20,7 @@ const FornecedorForm = ({ initialData, onSubmit, isEditing = false, onDelete }) 
         email: initialData.email || '',
         telefone: initialData.telefone || '',
         endereco: initialData.endereco || '',
-        Status: initialData.Status === false ? false : true, // Trata o status explicitamente
+        Status: initialData.Status === false ? false : true,
       });
     }
   }, [initialData]);

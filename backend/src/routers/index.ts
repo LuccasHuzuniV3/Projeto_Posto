@@ -5,6 +5,7 @@ import { comprasCreateController, comprasListController, comprasListOneControlle
 import { precoCreateController,precoListController, precoListOneController, precoUpdateController, precoDeleteController,precoRecentController, precoFornecedorCreateController } from "../controller/preco.controller"; 
 import { combustivelCreateController, combustivelListController, combustivelListOneController, combustivelUpdateController, combustivelDeleteController } from "../controller/combustivel.controller";
 import {isAdmin, isFornecedor} from "../middlewares/auth.middleware"
+import { userListController, userListOne, userUpdateController, userDeleteController } from "../controller/user.controller"
 
 export const routes: Router = Router()
 
@@ -46,3 +47,11 @@ routes.delete('/combustivel/:id',isAdmin,combustivelDeleteController)
 
 //Rotas dos fornecedor
 routes.post('/meu-preco',isFornecedor,precoFornecedorCreateController)
+
+
+//Rotas dos usuario
+routes.get('/user',userListController)
+//routes.post('/user',userCreateController)
+routes.put('/user:id',userUpdateController)
+routes.get('/user/:id',userListOne)
+routes.delete('/user/:id',userDeleteController)

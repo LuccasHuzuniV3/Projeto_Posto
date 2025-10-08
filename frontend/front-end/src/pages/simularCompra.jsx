@@ -6,11 +6,11 @@ import { toast } from 'react-toastify';
 
 // Importando nossas funções de serviço
 import { getFornecedores } from '../services/apiFornecedor';
-import { getCombustivel } from '../services/apiCombustivel'; // CORREÇÃO 1: O nome da função era 'getCombustiveis'
+import { getCombustivel } from '../services/apiCombustivel';
 import { getPrecoAtual } from '../services/apiPreco';
 import { createCompra } from '../services/apiCompra';
 
-import '../css/simularcompra.css'; // Nome do CSS em minúsculo
+import '../css/simularcompra.css';
 
 const SimularCompra = () => {
   const navigate = useNavigate();

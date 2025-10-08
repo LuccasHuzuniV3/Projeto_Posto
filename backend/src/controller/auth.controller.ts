@@ -34,9 +34,7 @@ export const loginController = async (req: Request, res: Response):Promise<Respo
 export const registerController = async(req:Request, res:Response):Promise<Response> =>{
 
     try{
-        const {email,senha,nome} = req.body
-
-        const registro = await userCreateServiceNew(email,senha,nome)
+        const registro = await userCreateServiceNew(req.body)
 
         if (!registro){
             return res.status(500).json({message: "Erro ao cadastrar usuario"})

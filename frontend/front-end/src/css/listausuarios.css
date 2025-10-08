@@ -1,0 +1,50 @@
+/* src/css/lista-usuarios.css */
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse; /* Remove o espaço entre as bordas das células */
+  background-color: var(--cor-card); /* Usa a cor do card do tema */
+  border-radius: 8px;
+  overflow: hidden; /* Garante que o border-radius seja aplicado nas bordas da tabela */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.users-table th,
+.users-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--cor-borda-sutil);
+}
+
+.users-table th {
+  background-color: rgba(0, 0, 0, 0.1); /* Um fundo sutil para o cabeçalho */
+  color: var(--cor-texto-principal);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.users-table tbody tr:last-child td {
+  border-bottom: none; /* Remove a borda da última linha */
+}
+
+.users-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05); /* Efeito sutil ao passar o mouse */
+}
+
+/* Botão de editar dentro da tabela */
+.edit-button-table {
+  background-color: #4A5568;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 14px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.edit-button-table:hover {
+  background-color: #2D3748;
+}

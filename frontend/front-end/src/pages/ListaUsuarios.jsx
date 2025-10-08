@@ -4,10 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { getUsers } from '../src/services/apiConfiguracao'; 
+import { getUsers } from '../services/apiUsuario'; // Importando a função da API
 
 // Vamos criar este CSS a seguir
-import '../css/lista-usuarios.css';
+import '../css/ListaUsuarios';
 
 const ListaUsuarios = () => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const ListaUsuarios = () => {
     };
 
     carregarUsuarios();
-  }, []);
+  }, []); // O array vazio [] garante que a busca seja feita apenas uma vez
 
   if (loading) {
     return <div className="feedback-container"><div className="loading-spinner"></div></div>;
