@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.precoRecentController = exports.precoDeleteController = exports.precoUpdateController = exports.precoListOneController = exports.precoListController = exports.precoCreateController = void 0;
+exports.precoFornecedorCreateController = exports.precoRecentController = exports.precoDeleteController = exports.precoUpdateController = exports.precoListOneController = exports.precoListController = exports.precoCreateController = void 0;
 const preco_service_1 = require("../services/preco.service");
 const preco_service_2 = require("../services/preco.service");
 //Criar um preco
@@ -63,18 +63,36 @@ const precoDeleteController = async (req, res) => {
 exports.precoDeleteController = precoDeleteController;
 //Pega o preco mais recente
 const precoRecentController = async (req, res) => {
-    console.log("Query recebida:", req.query);
     const combustivelId = Number(req.query.combustivelId);
     const fornecedorId = Number(req.query.fornecedorId);
     try {
-        console.log("Chamando o service 'precoRecentService'...");
         const recentPreco = await (0, preco_service_2.precoRecentService)({ combustivelId, fornecedorId });
         return res.status(200).json(recentPreco);
     }
     catch (error) {
-        console.error("!!! ERRO CAPTURADO NO CONTROLLER !!!", error);
         return res.status(404).json({ message: 'Erro ao buscar o preco mais recente' });
     }
 };
 exports.precoRecentController = precoRecentController;
+//ROTA EXCLUSIVA DO FORNECEDOR
+const precoFornecedorCreateController = async (req, res) => {
+    try {
+        const fornecedorId = req.session.usuario?.fornecedorId;
+        if (!fornecedorId) {
+            throw new Error("ID do fornecedor não encontrado na sessão.");
+        }
+        const { valor, combustivelId } = req.body;
+        const precoData = {
+            valor,
+            combustivelId,
+            fornecedorId
+        };
+        const newPreco = await (0, preco_service_1.precoCreateService)(precoData);
+        return res.status(201).json(newPreco);
+    }
+    catch (error) {
+        return res.status(500).json({ message: 'Erro interno' });
+    }
+};
+exports.precoFornecedorCreateController = precoFornecedorCreateController;
 //# sourceMappingURL=preco.controller.js.map

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userCreateServiceNew = exports.validateUserService = void 0;
+exports.userListOneService = exports.userDeleteService = exports.userUpdateService = exports.userListService = exports.userCreateServiceNew = exports.validateUserService = void 0;
 const index_1 = require("../index");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const validateUserService = async (email) => {
@@ -16,7 +16,9 @@ const validateUserService = async (email) => {
     return validade;
 };
 exports.validateUserService = validateUserService;
-const userCreateServiceNew = async (email, senha, nome) => {
+//Cria new User
+const userCreateServiceNew = async (data) => {
+    const { nome, email, senha, fornecedorId, role } = data;
     const register = await index_1.prisma.usuario.findUnique({
         where: { email }
     });
@@ -30,10 +32,66 @@ const userCreateServiceNew = async (email, senha, nome) => {
         data: {
             nome,
             email,
-            senha: hashedPassword
+            senha: hashedPassword,
+            fornecedorId,
+            role
         }
     });
-    return newUser;
+    const returnNewUser = {
+        nome: newUser.nome,
+        email: newUser.email,
+        fornecedorId: newUser.fornecedorId,
+        role: newUser.role
+    };
+    return returnNewUser;
 };
 exports.userCreateServiceNew = userCreateServiceNew;
+//Lista todos
+const userListService = async () => {
+    return await index_1.prisma.usuario.findMany();
+};
+exports.userListService = userListService;
+//Atualiza dados do usuario
+const userUpdateService = async (id, data) => {
+    //Primeiro checo se existe mesmo o usuario
+    const userExist = await index_1.prisma.usuario.findFirstOrThrow({
+        where: {
+            id: id
+        }
+    });
+    if (!userExist) {
+        throw new Error("Usuario nao existe");
+    }
+    const user = await index_1.prisma.usuario.update({
+        where: {
+            id
+        },
+        data
+    });
+    return user;
+};
+exports.userUpdateService = userUpdateService;
+//Apaga um User
+const userDeleteService = async (id) => {
+    const user = await index_1.prisma.usuario.delete({
+        where: {
+            id
+        }
+    });
+    return user;
+};
+exports.userDeleteService = userDeleteService;
+//Busca um 
+const userListOneService = async (id) => {
+    const user = await index_1.prisma.usuario.findUnique({
+        where: {
+            id
+        }
+    });
+    if (!user) {
+        throw new Error("Erro ao busca user");
+    }
+    return user;
+};
+exports.userListOneService = userListOneService;
 //# sourceMappingURL=auth.service.js.map

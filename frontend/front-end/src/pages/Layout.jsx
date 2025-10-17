@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
   return (
     <div className="layout">
       <Sidebar />
-      <main className="content">{children}</main>
+      <main className="main-content">{children}</main>
 
        <ToastContainer
         position="top-right"

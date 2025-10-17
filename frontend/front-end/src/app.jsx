@@ -9,6 +9,8 @@ import EditarFornecedor from "./pages/editarFornecedor";
 import SimularCompra from "./pages/simularCompra"
 import HistoricoCompras from "./pages/historicocompras";
 import ListaUsuarios from "./pages/ListaUsuarios"
+import CriarUsuario from "./pages/CriarUsuario";
+import EditarUsuario from "./pages/editarUsuario";
 
 
 import "./css/app.css";
@@ -30,6 +32,8 @@ function App() {
 
         {/*configuracao*/ }
         <Route path="/configuracao" element={<Layout> <ListaUsuarios/> </Layout>} />
+        <Route path="/usuarios/criar" element={<Layout>  <CriarUsuario /> </Layout>} /> 
+        <Route path="/usuarios/editar/:id" element={<Layout>  <EditarUsuario /> </Layout>} /> 
         {/* <Route path="/usuarios/criar" element={<CriarUsuario />} /> */}
       </Routes>
     </Router>

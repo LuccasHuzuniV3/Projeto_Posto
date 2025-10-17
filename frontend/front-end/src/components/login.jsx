@@ -1,84 +1,84 @@
 import React, { useState } from 'react';
-import { Container, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/authContext';
 import '../css/login.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
-
+  
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError('');
 
     try {
       const response = await fetch('http://localhost:5000/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include', // Essencial para o gerenciamento de cookies
         body: JSON.stringify({ email, senha }),
       });
-       if (response.ok) { // status 200-299
+
       const data = await response.json();
-      // Aqui você pega os dados do usuário
-      const { usuario_id, nome } = data;
 
-      // Você pode salvar no localStorage ou contexto, se quiser
-      localStorage.setItem('usuario_id', usuario_id);
-      localStorage.setItem('nome', nome);
+      if (!response.ok) {
+        throw new Error(data.message || 'Erro no login. Verifique suas credenciais.');
+      }
 
-      setMessage(`Bem-vindo, ${nome}!`);
-      console.log('Login bem-sucedido:');
-      setError('');
+      // Salva o usuário no contexto global
+      login(data.usuario);
 
-      // Redireciona para outra página
-      navigate('/dashboard'); // ou qualquer rota após login
-    } else {
-      // Caso a API retorne 400, 401 etc.
-      const data = await response.json();
-      setError(data.message || 'Erro no login');
-      setMessage('');
+      // Faz o redirecionamento inteligente baseado no 'role'
+      if (data.usuario.role === 'Admin') {
+        navigate('/dashboard');
+      } else if (data.usuario.role === 'Fornecedor') {
+        navigate('/meu-preco');
+      } else {
+        navigate('/');
+      }
+
+    } catch (err) {
+      setError(err.message || 'Erro ao conectar com o servidor.');
+      console.error('Erro de login:', err);
     }
-  } catch (err) {
-    setError('Erro ao conectar com o servidor');
-    console.error('Erro:', err);
-  }
-};
+  };
 
   return (
     <section className="gradient-form">
       <div className="card">
         {/* Lado esquerdo */}
         <div className="card-body">
-    
           <h2>Gontijao Team</h2>
           <p>Entre na sua conta</p>
 
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {message && <p style={{ color: 'green' }}>{message}</p>}
+          <form onSubmit={handleLogin}>
+            {error && <p style={{ color: 'red', fontWeight: 'bold' }}>{error}</p>}
 
-
-          <input 
-          type="email" 
-          className="form-control" 
-          placeholder="Email" 
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          />
-          <input 
-          type="password" 
-          className="form-control" 
-          placeholder="Senha" 
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-          />
-
-          <button className="btn-login" onClick={handleLogin} >LOGAR</button>
+            <input 
+              type="email" 
+              className="form-control" 
+              placeholder="Email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input 
+              type="password" 
+              className="form-control" 
+              placeholder="Senha" 
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              required
+            />
+            <button type="submit" className="btn-login">LOGAR</button>
+          </form>
         </div>
 
-        {/* Lado direito */}
+        {/* --- LADO DIREITO (CONTEÚDO RESTAURADO) --- */}
         <div className="gradient-side">
          <img
             src="/como-abrir-franquia-do-posto-shell-e1679299922711.jpg"
@@ -93,6 +93,8 @@ const Login = () => {
             aliquip ex ea commodo consequat.
           </p>
         </div>
+        {/* --- FIM DO CONTEÚDO RESTAURADO --- */}
+
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { createFornecedor } from '../services/apiFornecedor'; // Importamos a função da API
+import { createFornecedor } from '../services/apifornecedores'; // Importamos a função da API
 import FornecedorForm from '../components/FornecedorForm';
 import '../css/app.css';
 

@@ -4,7 +4,7 @@ import FornecedorCard from '../components/fornecedorcard';
 import { FaPlus } from 'react-icons/fa';
 import '../css/app.css';
 import { useNavigate } from 'react-router-dom';
-import { getFornecedores } from '../services/apiFornecedor'; 
+import { getFornecedores } from '../services/apifornecedores';
 
 const ListaFornecedores = () => {
 

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 // Importando nossas funções de serviço
-import { getFornecedores } from '../services/apiFornecedor';
+import { getFornecedores } from '../services/apifornecedores';
 import { getCombustivel } from '../services/apiCombustivel';
 import { getPrecoAtual } from '../services/apiPreco';
 import { createCompra } from '../services/apiCompra';

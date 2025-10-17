@@ -3,7 +3,9 @@ const BASE_URL = 'http://localhost:5000';
 
 //Busca a lista completa de Combustivel.
 export const getCombustivel = async () => {
-  const response = await fetch(`${BASE_URL}/combustivel`);
+  const response = await fetch(`${BASE_URL}/combustivel`,{
+     credentials: 'include'
+  });
   
   if (!response.ok) {
     throw new Error('Erro ao buscar combustivel.');
@@ -15,7 +17,9 @@ export const getCombustivel = async () => {
 
 //Busca um combustivel específico pelo ID.
 export const getCombustivelById = async (id) => {
-  const response = await fetch(`${BASE_URL}/combustivel/${id}`);
+  const response = await fetch(`${BASE_URL}/combustivel/${id}`,{
+     credentials: 'include'
+  });
 
   if (!response.ok) {
     throw new Error('combustivel não encontrado.');
@@ -29,6 +33,7 @@ export const createCombustivel = async(combusivelData) => {
 
     const response = await fetch(`${BASE_URL}/combustivel`,{
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },

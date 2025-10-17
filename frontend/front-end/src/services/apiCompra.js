@@ -2,7 +2,9 @@ const BASE_URL = 'http://localhost:5000';
 
 //Busca a lista completa de compras.
 export const getCompras = async () => {
-  const response = await fetch(`${BASE_URL}/compras`);
+  const response = await fetch(`${BASE_URL}/compras`,{
+     credentials: 'include'
+  });
   
   if (!response.ok) {
     throw new Error('Erro ao buscar compras.');
@@ -14,7 +16,9 @@ export const getCompras = async () => {
 
 //Busca um compras específico pelo ID.
 export const getComprasById = async (id) => {
-  const response = await fetch(`${BASE_URL}/compras/${id}`);
+  const response = await fetch(`${BASE_URL}/compras/${id}`,{
+     credentials: 'include'
+  });
 
   if (!response.ok) {
     throw new Error('compras não encontrado.');
@@ -28,6 +32,7 @@ export const createCompra = async(comprasData) => {
 
     const response = await fetch(`${BASE_URL}/compras`,{
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -45,6 +50,7 @@ export const createCompra = async(comprasData) => {
 export const updateCompras = async(id,comprasData) => {
     const response = await fetch(`${BASE_URL}/compras/${id}`,{
         method: 'PUT',
+        credentials: 'include',
         headers: {
             'Content-Type':'application/json',
         },
@@ -63,6 +69,7 @@ export const deleteCompras = async(id) => {
 
      const response = await fetch(`${BASE_URL}/compras/${id}`,{
         method: 'DELETE',
+        credentials: 'include',
     });
 
     if (!response.ok) {

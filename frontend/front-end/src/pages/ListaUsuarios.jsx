@@ -67,7 +67,7 @@ const ListaUsuarios = () => {
                 <td>{usuario.email}</td>
                 <td>{usuario.role}</td>
                 <td>
-                  <button className="edit-button-table">Editar</button>
+                  <button className="edit-button-table" onClick={() => navigate(`/usuarios/editar/${usuario.id}`)}>Editar</button>
                 </td>
               </tr>
             ))}

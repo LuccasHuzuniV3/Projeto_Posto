@@ -23,11 +23,11 @@ export interface UserReturnCliente{
 }
 
 export interface UserUpdate{
-    email:string
-    senha:string
-    nome:string
-    fornecedorId:number
-    role:string
+    email?:string
+    senha?:string
+    nome?:string
+    fornecedorId?:number
+    role?:string
 }
 
 
@@ -57,6 +57,17 @@ export const userCreateServiceNew = async(data:UserCreate) => {
     if (register) {
         throw new Error('Email já registrado');
     }
+
+    if (role === 'Fornecedor' && fornecedorId) {
+        
+        const fornecedorJaVinculado = await prisma.usuario.findUnique({
+            where: { fornecedorId: fornecedorId }
+        });
+
+        if (fornecedorJaVinculado) {
+            throw new Error('Este fornecedor já está vinculado a outro usuário.');
+        }
+    }
     
     //Criptograda a senha
     const hashedPassword = await bcrypt.hash(senha, 10);
@@ -72,20 +83,20 @@ export const userCreateServiceNew = async(data:UserCreate) => {
             });
 
     
-    const returnNewUser = {
-        nome:newUser.nome,
-        email:newUser.email,
-        fornecedorId:newUser.fornecedorId,
-        role:newUser.role
-    };
-
-
-    return returnNewUser
+    // Retorna o usuário sem a senha
+    const { senha: _, ...UserReturnCliente } = newUser;
+    return UserReturnCliente;
 }
 
 //Lista todos
 export const userListService = async():Promise<UserReturnCliente[]> =>{
-    return await prisma.usuario.findMany()
+    const users = await prisma.usuario.findMany();
+
+    return users.map(user => {
+        const { senha: _, ...safeUser } = user;
+        return safeUser;
+    });
+
 }
 
 //Atualiza dados do usuario
@@ -101,15 +112,21 @@ export const userUpdateService = async(id:number,data:UserUpdate):Promise<UserRe
     if(!userExist){
         throw new Error("Usuario nao existe");
     }
-    
+
+    if (data.senha) {
+        // ...nós a criptografamos ANTES de salvar.
+        data.senha = await bcrypt.hash(data.senha, 10);
+    }
+
     const user: UserReturn = await prisma.usuario.update({
         where:{
             id
         },
-        data
+        data: data
     }); 
 
-    return user
+    const { senha: _, ...safeUser } = user;
+    return safeUser;
 }
     
 //Apaga um User
@@ -120,7 +137,6 @@ export const userDeleteService = async(id:number):Promise<UserReturnCliente> => 
             id
         }
     })
-
     return user
 }
 
@@ -137,5 +153,6 @@ export const userListOneService = async(id:number):Promise<UserReturnCliente> =>
         throw new Error("Erro ao busca user")
     }
 
-    return user
+    const { senha: _, ...safeUser } = user;
+    return safeUser;
 }

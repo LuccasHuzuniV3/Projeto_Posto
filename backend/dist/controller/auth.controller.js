@@ -20,6 +20,10 @@ const loginController = async (req, res) => {
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Credencias invalidas' });
         }
+        req.session.usuario = { id: usuario.id,
+            role: usuario.role,
+            fornecedorId: usuario.fornecedorId
+        };
         return res.json({ usuarioId: usuario.id, nome: usuario.nome });
     }
     catch (error) {
@@ -29,8 +33,7 @@ const loginController = async (req, res) => {
 exports.loginController = loginController;
 const registerController = async (req, res) => {
     try {
-        const { email, senha, nome } = req.body;
-        const registro = await (0, auth_service_1.userCreateServiceNew)(email, senha, nome);
+        const registro = await (0, auth_service_1.userCreateServiceNew)(req.body);
         if (!registro) {
             return res.status(500).json({ message: "Erro ao cadastrar usuario" });
         }

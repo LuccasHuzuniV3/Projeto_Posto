@@ -4,7 +4,9 @@ const BASE_URL = 'http://localhost:5000'
 
 //Busca Usuarios
 export const getUsers = async() =>{
-    const response = await fetch(`${BASE_URL}/user`)
+    const response = await fetch(`${BASE_URL}/users`,{
+        credentials: 'include'
+    })
 
     if(!response.ok){
         throw new Error("Não foi possivel buscar usuarios!")
@@ -15,7 +17,9 @@ export const getUsers = async() =>{
 
 //Busca um usuario
 export const getOneUser = async(id) =>{
-    const response = await fetch(`${BASE_URL}/user/${id}`)
+    const response = await fetch(`${BASE_URL}/user/${id}`,{
+        credentials: 'include'
+    })
 
     if(!response.ok){
         throw new Error("Nao foi possivel acha este usuario!")
@@ -24,28 +28,26 @@ export const getOneUser = async(id) =>{
     return await response.json()
 }
 
-//Adicionando um usuario
-export const createUser = async(userData) => {
-    const response = await fetch(`${BASE_URL}/register`,{
-        method:'POST',
-        headers:{
-             'Content-Type': 'application/json',
-        },
+export const createUser = async (userData) => {
+    // A rota correta é /user, protegida pelo admin
+    console.log('Dados do usuário a serem enviados:', userData); // Log para depuração
+    const response = await fetch(`${BASE_URL}/user`, {
+        method: 'POST',
+        credentials: 'include', 
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData),
-    })
-
-    if(!response.ok){
-        throw new Error("Nao foi possivel criar um usuario!")
-    }
-
-    return await response.json()
-
+    });
+    if (!response.ok) throw new Error("Não foi possível criar o usuário!");
+    return await response.json();
 }
+
+
 
 //Atualizando um usuario
 export const updateUser = async(id,userData) =>{
        const response = await fetch(`${BASE_URL}/user/${id}`,{
         method:'PUT',
+        credentials: 'include',
         headers:{
              'Content-Type': 'application/json',
         },
@@ -64,6 +66,7 @@ export const deleteUser = async(id) => {
 
      const response = await fetch(`${BASE_URL}/user/${id}`,{
         method: 'DELETE',
+        credentials: 'include'
     });
 
     if (!response.ok) {

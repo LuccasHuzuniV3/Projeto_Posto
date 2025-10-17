@@ -41,8 +41,24 @@ exports.app = void 0;
 const express_1 = __importStar(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const routers_1 = require("./routers");
+const express_session_1 = __importDefault(require("express-session"));
 exports.app = (0, express_1.default)();
-exports.app.use((0, cors_1.default)());
+//app.use(cors());
+exports.app.use((0, cors_1.default)({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
 exports.app.use((0, express_1.json)());
+// Em src/app.ts
+exports.app.use((0, express_session_1.default)({
+    secret: "seu_segredo_super_secreto",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false, // MANTENHA 'false' para desenvolvimento em HTTP
+        httpOnly: true, // Boa prática: impede que o JavaScript do front-end leia o cookie
+        sameSite: 'lax' // A configuração que permite o envio em navegações
+    },
+}));
 exports.app.use(routers_1.routes);
 //# sourceMappingURL=app.js.map

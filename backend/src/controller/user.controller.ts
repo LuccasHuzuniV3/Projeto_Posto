@@ -1,19 +1,6 @@
 import { Request,Response} from "express";
 import { userCreateServiceNew,UserReturnCliente,userListService,userUpdateService,userDeleteService,userListOneService} from "../services/auth.service";
 
-/*
-//Criar usuario
-export const userCreateController = async(req:Request,res:Response):Promise<Response> => {
-
-    try{
-        const user = await userCreateServiceNew(req.body)
-        return res.status(201).json(user)
-    }catch(error){
-        return res.status(400).json({message:"Erro ao criar"})
-    }
-
-}
-*/
 
 //Trazer todos os usuarios
 export const userListController = async(req:Request,res:Response):Promise<Response> =>{
@@ -63,4 +50,13 @@ export const userDeleteController = async(req:Request,res:Response):Promise<Resp
         return res.status(404).json({message:"Erro ao exluir"})
     }
 
+}
+
+export const userCreateController = async(req:Request, res:Response):Promise<Response> => {
+    try {
+        const user = await userCreateServiceNew(req.body);
+        return res.status(201).json(user);
+    } catch(error: any) {
+        return res.status(400).json({ message: error.message || "Erro ao criar usuário" });
+    }
 }
