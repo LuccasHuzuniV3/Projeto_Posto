@@ -1,0 +1,44 @@
+/* src/css/paginaprecos.css - VERSÃO FINAL COM ORDENAÇÃO */
+
+.tabs-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.tab-button {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #718096;
+  border-bottom: 3px solid transparent;
+  transform: translateY(2px);
+}
+
+.tab-button.active {
+  color: #38B2AC;
+  border-bottom-color: #38B2AC;
+}
+
+.table-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* --- ESTILOS PARA OS CABEÇALHOS CLICÁVEIS --- */
+.users-table thead th {
+  cursor: pointer; /* Mostra a "mãozinha" ao passar o mouse */
+  transition: background-color 0.2s;
+  user-select: none; /* Impede que o texto seja selecionado ao clicar */
+}
+
+.users-table thead th:hover {
+  background-color: #f7fafc; /* Cor sutil de hover */
+}
+

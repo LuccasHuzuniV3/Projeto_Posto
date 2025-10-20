@@ -51,12 +51,12 @@ export const buyCreateService = async(data:BuyCreate):Promise<BuyReturn> =>{
 
     return newBuy
 }
-
+/*
 //Lista as compras
 export const buyListService = async():Promise<BuyReturn[]> => {
     return await prisma.compra.findMany()
 }
-
+*/
 //Acessa uma compra
 export const buyListOneService = async(id:number):Promise<BuyReturn> => {
     return await prisma.compra.findUniqueOrThrow({
@@ -87,3 +87,20 @@ export const buyDeleteService = async(id:number):Promise<BuyReturn> => {
     return buy
 }
 
+//Pegando a compra com os dados relacionados
+export const buyListFornecedorService = async (): Promise<any[]> => { 
+    const compras = await prisma.compra.findMany({
+        include: {
+            preco: { 
+                include: {
+                    fornecedor: true, 
+                    combustivel: true  
+                }
+            }
+        },
+        orderBy: {
+            dataCompra: 'desc' 
+        }
+    });
+    return compras;
+};

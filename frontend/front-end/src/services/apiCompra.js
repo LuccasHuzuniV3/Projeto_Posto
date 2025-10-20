@@ -1,18 +1,5 @@
 const BASE_URL = 'http://localhost:5000';
 
-//Busca a lista completa de compras.
-export const getCompras = async () => {
-  const response = await fetch(`${BASE_URL}/compras`,{
-     credentials: 'include'
-  });
-  
-  if (!response.ok) {
-    throw new Error('Erro ao buscar compras.');
-  }
-  
-  return await response.json();
-};
-
 
 //Busca um compras específico pelo ID.
 export const getComprasById = async (id) => {
@@ -78,3 +65,16 @@ export const deleteCompras = async(id) => {
 
     return true
 }
+
+//Busca a lista de compras com dados.
+export const getComprasCompleto = async () => {
+  const response = await fetch(`${BASE_URL}/compras`,{ 
+      credentials: 'include'
+  });
+
+  if (!response.ok) {
+    throw new Error('Erro ao buscar compras do fornecedor.');
+  }
+  return await response.json();
+
+};

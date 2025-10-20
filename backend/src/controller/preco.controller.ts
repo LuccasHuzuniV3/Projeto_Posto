@@ -1,6 +1,6 @@
 import {Request, Response} from "express"
 import { precoCreateService, PrecoCreate, PrecoReturn } from "../services/preco.service"
-import { precoDeleteService, precoListOneService, precoListService, precoUpdateService,precoRecentService } from "../services/preco.service"
+import { precoDeleteService, precoListOneService, precoListService, precoUpdateService,precoRecentService,precoComparativoService,precoHistoricoService } from "../services/preco.service"
 import { FornecedorCreate } from "@services/fornecedor.service"
 
 //Criar um preco
@@ -78,7 +78,7 @@ export const precoRecentController = async(req:Request,res:Response):Promise<Res
     }
 }
 
-
+ 
 
 //ROTA EXCLUSIVA DO FORNECEDOR
 export const precoFornecedorCreateController = async(req:Request,res:Response):Promise<Response> =>{
@@ -104,5 +104,32 @@ export const precoFornecedorCreateController = async(req:Request,res:Response):P
     }catch(error){
         return res.status(500).json({ message: 'Erro interno' });
     }
+
+}
+
+
+//Pega o comparativo de precos de um combustivel
+export const precoComparativoController = async(req:Request,res:Response):Promise<Response> => {
+    const idCombustivel = Number(req.params.idCombustivel);
+
+    try{
+        const comparativo = await precoComparativoService(idCombustivel);
+        return res.status(200).json(comparativo);
+    }catch(error){
+
+        return res.status(500).json({message: 'Erro ao buscar o comparativo de precos'})
+    }
+
+}
+
+//Historio de precos
+export const precoHistoricoController = async(req:Request,res:Response):Promise<Response> => {
+
+    try{ 
+        const historico = await precoHistoricoService();
+        return res.status(200).json(historico);
+    }catch(error){
+        return res.status(500).json({message: 'Erro ao buscar o historico de precos'})
+    }   
 
 }

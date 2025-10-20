@@ -176,3 +176,26 @@ body {
 }
 .dropdown-menu div { padding: 12px 20px; cursor: pointer; }
 .dropdown-menu div:hover { background-color: #f0f0f0; }
+
+
+/* Adicione no final do seu app.css */
+.historico-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s ease-in-out;
+}

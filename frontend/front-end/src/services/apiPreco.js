@@ -96,3 +96,53 @@ export const getPrecoAtual = async (fornecedorId, combustivelId) => {
   
   return await response.json();
 };
+
+
+//Preco que o fornecedor ira cadastrar
+export const createPrecoFornecedor = async(precoData) => {
+
+  const response = await fetch(`${BASE_URL}/meupreco`,{
+      credentials: 'include',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(precoData),
+    });
+
+  if (!response.ok) {
+  throw new Error('Erro ao criar preco do fornecedor');
+  }
+
+  return await response.json();
+
+}
+
+
+//Pega o comparativo de precos de um combustivel
+export const getComparativoPrecos = async (idCombustivel) => {
+
+  const response = await fetch(`${BASE_URL}/preco/comparativo/${idCombustivel}`,{
+     credentials: 'include'
+  });
+
+  if (!response.ok) {
+    throw new Error('Erro ao buscar o comparativo de preços.');
+  }
+
+  return await response.json();
+
+}
+
+//Historico de compras
+export const getHistoricoPrecos = async () => {
+  const response = await fetch(`${BASE_URL}/precos/historico`,{
+      credentials: 'include'
+  });
+
+  if (!response.ok) {
+    throw new Error('Erro ao buscar histórico de precos controller.');
+  }
+
+  return await response.json();
+}

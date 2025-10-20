@@ -17,8 +17,8 @@ const Sidebar = () => {
 
       <nav className="sidebar-nav">
         {/* Link do Dashboard */}
-        <NavLink 
-          to="/dashboard" 
+        <NavLink
+          to="/dashboard"
           className={({ isActive }) => isActive ? 'nav-link-dashboard active' : 'nav-link-dashboard'}
         >
           <GoHome size={24} />
@@ -30,23 +30,18 @@ const Sidebar = () => {
           <h2 className="section-title">PREÇOS</h2>
           <ul className="nav-list">
             <li>
-              <NavLink to="/precos/gasolina" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
-                Gasolina
+              <NavLink to="/precos" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
+                Comparativo
               </NavLink>
             </li>
             <li>
-              <NavLink to="/precos/etanol" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
-                Etanol
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/precos/diesel" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
-                Diesel
+              <NavLink to="/historico/precos" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
+                Histórico
               </NavLink>
             </li>
           </ul>
         </div>
-
+        
         {/* Seção de Fornecedores */}
         <div className="nav-section">
           <h2 className="section-title">FORNECEDORES</h2>
@@ -63,7 +58,7 @@ const Sidebar = () => {
             </li>
           </ul>
         </div>
-        
+
         {/* Seção de Relatórios */}
         <div className="nav-section">
           <h2 className="section-title">RELATÓRIOS</h2>
@@ -97,12 +92,12 @@ const Sidebar = () => {
           <ul className="nav-list">
             <li>
               <NavLink to="/compras" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
-                Historia e Simulador
+                Historico e Simulador
               </NavLink>
             </li>
           </ul>
         </div>
-              {/* Seção do Simulador */}
+        {/* Seção do Simulador */}
         <div className="nav-section">
           <h2 className="section-title">Configurações</h2>
           <ul className="nav-list">
@@ -113,7 +108,7 @@ const Sidebar = () => {
             </li>
           </ul>
         </div>
-        
+
       </nav>
     </aside>
   );

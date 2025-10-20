@@ -108,7 +108,7 @@ const CriarUsuario = () => {
           )}
 
           <div className="form-actions">
-            <button type="button" className="cancel-button" onClick={() => navigate('/usuarios')}>
+            <button type="button" className="cancel-button" onClick={() => navigate('/configuracao')}>
               Cancelar
             </button>
             <button type="submit" className="submit-button">

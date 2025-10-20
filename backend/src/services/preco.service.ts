@@ -154,3 +154,56 @@ export const precoRecentService = async(data:PrecoRecent):Promise<PrecoReturn> =
     return preco
 }
 
+//Pegando o comparativo de precos de um combustivel
+export const precoComparativoService = async(idCombustivel:number):Promise<any[]> => {
+
+    //Pegos os fornecedores ativos
+    let fornecedores = await prisma.fornecedor.findMany({
+        where:{
+            Status:true
+        }
+    })
+
+    const melhoresPrecosPorFornecedor = []
+
+    //Para cada fornecedo pego o preco mais recente do combustivel 
+    for(const fornecedorAtual of fornecedores){
+
+        let precoRecente = await prisma.preco.findFirst({
+            where:{
+                fornecedorId:fornecedorAtual.id,
+                combustivelId:idCombustivel
+            },
+            orderBy:{
+                valor:'desc'
+            },
+        })
+
+        if(precoRecente){
+            melhoresPrecosPorFornecedor.push({
+                fornecedor:fornecedorAtual.nome,
+                valor:precoRecente.valor,
+                dataAtualizacao:precoRecente.dataCadastro
+            })
+        }
+
+    }
+
+    return melhoresPrecosPorFornecedor
+
+}
+
+//Historico de precos
+export const precoHistoricoService = async():Promise<any[]> => {
+    const historico = await prisma.preco.findMany({
+        include:{
+            fornecedor:true,
+            combustivel:true
+            },
+        orderBy:{
+            dataCadastro:"desc"
+        } 
+    });
+    
+    return historico
+}

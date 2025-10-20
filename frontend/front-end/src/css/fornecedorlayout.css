@@ -1,0 +1,41 @@
+/* src/css/fornecedorLayout.css */
+.fornecedor-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f4f7f6;
+}
+.fornecedor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background-color: #2b2b2b;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.logo-fornecedor {
+  font-size: 20px;
+  font-weight: 300;
+}
+.logo-fornecedor strong {
+  font-weight: 700;
+  color: #38B2AC;
+}
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.logout-button {
+  background-color: #E53E3E;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.fornecedor-content {
+  padding: 40px;
+}

@@ -1,120 +1,176 @@
-/* dashboard.css */
-.dashboard-container {
-  display: flex;
-  height: 100vh;
+/* src/css/dashboard.css - VERSÃO FINAL */
+
+.dashboard-grid {
+  display: grid;
+  /* Cria 3 colunas, mas se não houver espaço, elas quebram a linha */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px; /* Espaço entre os cards */
 }
 
-.sidebar {
-  width: 250px;
-  background-color: #333;
-  color: white;
-  padding: 20px;
+.stat-card {
+  background-color: #ffffff; /* Fundo branco */
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #718096; /* Cinza para o título */
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+}
+
+.stat-card-number {
+  font-size: 48px;
+  font-weight: 700;
+  color: #38B2AC; /* Cor de destaque */
+  margin: 0;
+}
+
+/* Estilo para os cards de exemplo que ainda não têm dados */
+.stat-card.placeholder {
+  opacity: 0.5;
+}
+
+.prices-card {
+  text-align: left; /* Alinha o texto à esquerda neste card */
+}
+
+.prices-list {
   display: flex;
   flex-direction: column;
+  gap: 16px; /* Espaço entre cada linha de combustível */
+  margin-top: 12px;
 }
 
-.sidebar h3 {
-  font-size: 24px;
-  margin-bottom: 20px;
+.price-item {
+  display: grid;
+  grid-template-columns: 1fr auto; /* Colunas para nome e valor */
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 8px;
+}
+
+.price-item:last-child {
+  border-bottom: none; /* Remove a borda do último item */
+}
+
+.price-item-fuel {
+  font-weight: 700;
+  font-size: 16px;
+  color: #4A5568;
+}
+
+.price-item-value {
+  font-weight: 700;
+  font-size: 18px;
+  color: #38B2AC; /* Cor de destaque */
+  justify-self: end; /* Alinha o preço à direita */
+}
+
+.price-item-supplier {
+  grid-column: 1 / -1; /* Ocupa todas as colunas */
+  font-size: 13px;
+  color: #a0aec0;
+  margin-top: 2px;
+}
+
+.no-prices-message {
+  color: #a0aec0;
+  font-size: 14px;
   text-align: center;
+  margin-top: 20px;
 }
 
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
+.recent-buys-card {
+  text-align: left;
+  justify-content: flex-start;
 }
 
-.sidebar ul li {
-  margin: 15px 0;
-  cursor: pointer;
+.buys-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 12px;
 }
 
-.sidebar ul li:hover {
-  background-color: #555;
-  padding: 10px;
-  border-radius: 4px;
-}
-
-.main-content {
-  flex-grow: 1;
-  padding: 20px;
-}
-
-header {
+.buy-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 8px;
 }
 
-header h1 {
-  font-size: 24px;
+.buy-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
-header button {
-  padding: 10px 20px;
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-header button:hover {
-  background-color: #d32f2f;
-}
-
-form {
+.buy-item-info {
   display: flex;
   flex-direction: column;
 }
 
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
+.buy-item-fuel {
+  font-weight: 700;
   font-size: 16px;
-  margin-bottom: 5px;
+  color: #4A5568;
 }
 
-.form-group input,
-.form-group select {
-  padding: 10px;
-  font-size: 16px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.buy-item-supplier {
+  font-size: 13px;
+  color: #a0aec0;
+  margin-top: 2px;
 }
 
-.buttons {
-  display: flex;
-  justify-content: space-between;
+.buy-item-details {
+  text-align: right;
 }
 
-.cancel-button,
-.calculate-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.buy-item-cost {
+  display: block;
+  font-weight: 700;
+  font-size: 18px;
+  color: #38B2AC;
 }
 
-.cancel-button {
-  background-color: #f44336;
-  color: white;
+.buy-item-date {
+  display: block;
+  font-size: 13px;
+  color: #a0aec0;
+  margin-top: 2px;
 }
 
-.calculate-button {
-  background-color: #4caf50;
-  color: white;
+/* Adicione no final de src/css/dashboard.css */
+
+.recent-activity-section {
+  margin-top: 40px; /* Espaço entre os cards de cima e a nova seção */
 }
 
-.cancel-button:hover {
-  background-color: #d32f2f;
+/* Reutilizamos o estilo de título de seção que já temos */
+.recent-activity-section .section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #4A5568;
+  margin-bottom: 20px;
 }
 
-.calculate-button:hover {
-  background-color: #388e3c;
+/* Container da tabela para ter fundo branco e sombra */
+.table-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden; /* Garante que a borda arredondada funcione na tabela */
 }

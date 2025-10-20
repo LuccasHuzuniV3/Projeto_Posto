@@ -1,5 +1,5 @@
 import { Request, Response} from "express";
-import { BuyReturn, buyCreateService, buyDeleteService, buyListOneService, buyListService, buyUpdateService } from "../services/compras.service";
+import { BuyReturn, buyCreateService, buyDeleteService, buyListOneService, buyUpdateService,buyListFornecedorService } from "../services/compras.service";
 
 
 //Grava um novo compras
@@ -12,16 +12,6 @@ export const comprasCreateController = async (req: Request, res: Response):Promi
         return res.status(500).json({  message: error.message });
     }
 
-}
-
-//Lista todos os compras
-export const comprasListController = async (req: Request, res: Response):Promise<Response>=>{
-    try{
-        const newBuy: BuyReturn[] = await buyListService();
-        return res.status(200).json(newBuy);  
-    }catch(error:any){
-        return res.status(500).json({ message: error.message});   
-    }
 }
 
 //Pega uma compra 
@@ -60,3 +50,27 @@ export const buyDeleteController = async(req:Request, res: Response):Promise<Res
     }
 
 }
+
+
+//Pegando a compra com os dados relacionados
+export const buyListFornecedorController = async (req: Request, res: Response):Promise<Response>=>{
+    try{
+        const compras = await buyListFornecedorService();
+        return res.status(200).json(compras);        
+    }catch(error:any){
+        return res.status(500).json({ message: error.message});      
+    }
+}
+
+
+/*
+//Lista todos os compras
+export const comprasListController = async (req: Request, res: Response):Promise<Response>=>{
+    try{
+        const newBuy: BuyReturn[] = await buyListService();
+        return res.status(200).json(newBuy);  
+    }catch(error:any){
+        return res.status(500).json({ message: error.message});   
+    }
+}
+*/

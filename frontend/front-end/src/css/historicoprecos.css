@@ -1,0 +1,60 @@
+/* src/css/paginaHistoricoPrecos.css */
+
+/* --- SEÇÃO DE FILTROS --- */
+.filtros-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Duas colunas para os filtros */
+  gap: 24px;
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.filtro-item label {
+  display: block;
+  font-weight: 600;
+  color: #4A5568;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+/* Reutiliza o estilo dos outros selects da aplicação */
+.filtros-container select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  background-color: #F7FAFC;
+  font-size: 15px;
+  box-sizing: border-box;
+  color: #2D3748;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* --- SEÇÃO DO GRÁFICO --- */
+.grafico-container {
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+/* --- SEÇÃO DA TABELA --- */
+.table-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* Destaque para a linha com o menor preço na tabela */
+.users-table tbody tr.destaque {
+  background-color: #C6F6D5 !important;
+  font-weight: 700;
+}
+.users-table tbody tr.destaque td {
+  color: #22543D !important;
+}

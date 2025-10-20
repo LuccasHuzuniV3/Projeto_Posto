@@ -83,7 +83,7 @@ const SimularCompra = () => {
       };
       await createCompra(dadosCompra);
       toast.success('Compra registrada com sucesso!');
-      navigate('/fornecedores/listar'); // Redireciona para a lista de fornecedores
+      navigate('/compras'); // Redireciona para a lista de fornecedores
     } catch (error) {
       toast.error(`Não foi possível salvar a compra: ${error.message}`);
     }
