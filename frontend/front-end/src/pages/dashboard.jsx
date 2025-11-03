@@ -1,10 +1,17 @@
-// src/pages/Dashboard.jsx - VERSÃO FINAL COM LAYOUT MELHORADO
+// src/pages/Dashboard.jsx - VERSÃO FINAL COM ÍCONES DE ORDENAÇÃO
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { toast } from 'react-toastify';
 import { getDashboardStats, getMelhoresPrecos, getUltimasCompras, getTotalComprasMes } from '../services/apiDashboard';
 
 import '../css/dashboard.css'; 
+
+// --- NOVAS IMPORTAÇÕES DE ÍCONES ---
+import { FaSortUp, FaSortDown, FaSort } from 'react-icons/fa'; 
+// FaSortUp: seta para cima
+// FaSortDown: seta para baixo
+// FaSort: seta neutra (sem ordenação aplicada ou para indicar que pode ordenar)
+
 
 const Dashboard = () => {
   const [stats, setStats] = useState(null);
@@ -12,6 +19,9 @@ const Dashboard = () => {
   const [ultimasCompras, setUltimasCompras] = useState([]);
   const [totalComprasMes, setTotalComprasMes] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // Estado para controle da ordenação
+  const [sortConfig, setSortConfig] = useState({ key: 'dataCompra', direction: 'descending' });
 
   useEffect(() => {
     const carregarDashboardData = async () => {
@@ -35,8 +45,61 @@ const Dashboard = () => {
     carregarDashboardData();
   }, []);
 
+  // Lógica para ordenar a tabela (essa parte permanece igual)
+  const ultimasComprasOrdenadas = useMemo(() => {
+    let sortableItems = [...ultimasCompras];
+    if (sortConfig !== null) {
+      sortableItems.sort((a, b) => {
+        let aValue, bValue;
+        switch (sortConfig.key) {
+          case 'combustivel':
+            aValue = a.preco.combustivel.tipo;
+            bValue = b.preco.combustivel.tipo;
+            break;
+          case 'fornecedor':
+            aValue = a.preco.fornecedor.nome;
+            bValue = b.preco.fornecedor.nome;
+            break;
+          case 'custoTotal':
+            aValue = a.custoTotal;
+            bValue = b.custoTotal;
+            break;
+          case 'dataCompra':
+            aValue = new Date(a.dataCompra);
+            bValue = new Date(b.dataCompra);
+            break;
+          default: return 0;
+        }
+        if (aValue < bValue) return sortConfig.direction === 'ascending' ? -1 : 1;
+        if (aValue > bValue) return sortConfig.direction === 'ascending' ? 1 : -1;
+        return 0;
+      });
+    }
+    return sortableItems;
+  }, [ultimasCompras, sortConfig]);
+
+  const requestSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+  };
+
   const formatarData = (dataISO) => {
     return new Date(dataISO).toLocaleDateString('pt-BR');
+  };
+
+  // --- NOVA FUNÇÃO PARA RENDERIZAR O ÍCONE ---
+  const renderSortIcon = (key) => {
+    if (sortConfig.key === key) {
+      if (sortConfig.direction === 'ascending') {
+        return <FaSortUp className="sort-icon active" />;
+      } else {
+        return <FaSortDown className="sort-icon active" />;
+      }
+    }
+    return <FaSort className="sort-icon" />; // Ícone padrão para colunas não ordenadas
   };
 
   if (loading) {
@@ -83,22 +146,29 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* --- NOVA SEÇÃO DE ATIVIDADE RECENTE (O CARD QUE "DESCEU") --- */}
         <div className="recent-activity-section">
           <h2 className="section-title">Atividade Recente (Últimas Compras)</h2>
           <div className="table-container">
-            <table className="users-table">
+            <table className="users-table sortable">
               <thead>
                 <tr>
-                  <th>Combustível</th>
-                  <th>Fornecedor</th>
-                  <th>Custo Total</th>
-                  <th>Data</th>
+                  <th onClick={() => requestSort('combustivel')}>
+                    Combustível {renderSortIcon('combustivel')}
+                  </th>
+                  <th onClick={() => requestSort('fornecedor')}>
+                    Fornecedor {renderSortIcon('fornecedor')}
+                  </th>
+                  <th onClick={() => requestSort('custoTotal')}>
+                    Custo Total {renderSortIcon('custoTotal')}
+                  </th>
+                  <th onClick={() => requestSort('dataCompra')}>
+                    Data {renderSortIcon('dataCompra')}
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {ultimasCompras.length > 0 ? (
-                  ultimasCompras.map((item) => (
+                {ultimasComprasOrdenadas.length > 0 ? (
+                  ultimasComprasOrdenadas.map((item) => (
                     <tr key={item.id}>
                       <td>{item.preco.combustivel.tipo}</td>
                       <td>{item.preco.fornecedor.nome}</td>

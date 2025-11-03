@@ -5,6 +5,7 @@
   /* Cria 3 colunas, mas se não houver espaço, elas quebram a linha */
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 24px; /* Espaço entre os cards */
+  align-items: start;
 }
 
 .stat-card {
@@ -173,4 +174,39 @@
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   overflow: hidden; /* Garante que a borda arredondada funcione na tabela */
+}
+
+.users-table.sortable thead th {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-right: 20px; /* Espaço para a setinha */
+}
+
+/* Efeito de hover no cabeçalho */
+.users-table.sortable thead th:hover {
+  background-color: #f0f4f8; 
+}
+
+/* Cria a setinha usando bordas */
+.users-table.sortable thead th::after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 4px solid transparent;
+  opacity: 0.3; /* Setinha fica cinza por padrão */
+}
+
+/* Mostra a setinha para cima (Ascendente) */
+.users-table.sortable thead th.ascending::after {
+  border-bottom-color: #38B2AC;
+  opacity: 1;
+}
+
+/* Mostra a setinha para baixo (Descendente) */
+.users-table.sortable thead th.descending::after {
+  border-top-color: #38B2AC;
+  opacity: 1;
 }

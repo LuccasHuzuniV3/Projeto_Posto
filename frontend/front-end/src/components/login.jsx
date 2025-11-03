@@ -52,7 +52,7 @@ const Login = () => {
       <div className="card">
         {/* Lado esquerdo */}
         <div className="card-body">
-          <h2>Gontijao Team</h2>
+          <h2>Posto Mercado</h2>
           <p>Entre na sua conta</p>
 
           <form onSubmit={handleLogin}>
@@ -80,11 +80,6 @@ const Login = () => {
 
         {/* --- LADO DIREITO (CONTEÚDO RESTAURADO) --- */}
         <div className="gradient-side">
-         <img
-            src="/como-abrir-franquia-do-posto-shell-e1679299922711.jpg"
-            alt="Logo"
-            style={{ width: "80px", marginBottom: "20px" }}
-          />
           <h2>Somos mais que uma empresa</h2>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

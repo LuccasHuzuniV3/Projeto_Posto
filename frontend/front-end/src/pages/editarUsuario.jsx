@@ -72,7 +72,7 @@ const EditarUsuario = () => {
 
       await updateUser(id, userData); // Chama a API de atualização
       toast.success('Usuário atualizado com sucesso!');
-      navigate('/usuarios');
+      navigate('/configuracao');
     } catch (error) {
       toast.error(`Erro ao atualizar usuário: ${error.message}`);
     }
@@ -121,7 +121,7 @@ const EditarUsuario = () => {
           )}
 
           <div className="form-actions">
-            <button type="button" className="cancel-button" onClick={() => navigate('/usuarios')}>
+            <button type="button" className="cancel-button" onClick={() => navigate('/configuracao')}>
               Cancelar
             </button>
             <button type="submit" className="submit-button">

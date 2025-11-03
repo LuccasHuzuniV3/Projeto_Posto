@@ -1,4 +1,4 @@
-/* src/css/login.css - VERSÃO FINAL, CORRIGIDA E ISOLADA */
+/* src/css/login.css - VERSÃO ATUALIZADA COM PALETA DE CORES CIANO DO DASHBOARD */
 
 /* Garante que a página ocupe a tela toda sem margens */
 html, body, #root {
@@ -7,9 +7,9 @@ html, body, #root {
   height: 100%;
 }
 
-/* Fundo geral da página de login */
+/* Fundo geral da página de login (ESCURO) */
 .gradient-form {
-  background-color: #121212;
+  background-color: #121212; /* Fundo escuro como o original */
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -26,17 +26,20 @@ html, body, #root {
   min-height: 520px;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 0 30px rgba(0,0,0,0.5);
-  background-color: #2b2b2b;
+  /* Sombra sutil para o fundo escuro */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+  background-color: #343A40; /* Fundo do card cinza escuro */
+  border: 1px solid #495057; /* Borda sutil mais escura */
 }
 
+/* Lado esquerdo (formulário) */
 .gradient-form .card-body {
   flex: 1;
   padding: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: white;
+  color: #F8F9FA; /* Texto principal claro */
 }
 
 .gradient-form .card-body h2 {
@@ -45,15 +48,15 @@ html, body, #root {
 }
 
 .gradient-form .card-body p {
-  color: #ccc;
+  color: #CED4DA; /* Texto secundário cinza mais claro */
   margin-bottom: 30px;
 }
 
-/* Inputs do formulário */
+/* Inputs do formulário (estilo escuro) */
 .gradient-form .form-control {
-  background-color: #1e1e1e;
-  border: 1px solid #444;
-  color: #fff;
+  background-color: #495057; /* Fundo dos inputs */
+  border: 1px solid #6C757D; /* Borda cinza escura */
+  color: #F8F9FA; /* Texto do input claro */
   padding: 12px;
   border-radius: 5px;
   margin-bottom: 15px;
@@ -63,14 +66,16 @@ html, body, #root {
 }
 
 .gradient-form .form-control:focus {
-  border-color: #FFD700;
-  box-shadow: 0 0 5px #FFD700;
+  /* Ciano do dashboard para o foco */
+  border-color: #38B2AC; 
+  box-shadow: 0 0 0 0.25rem rgba(56, 178, 172, 0.25); /* Efeito "glow" com a cor nova */
   outline: none;
 }
 
-/* Botão de login (AGORA VAI VENCER A GUERRA) */
+/* Botão de login (COM GRADIENTE NO CIANO) */
 .gradient-form .btn-login {
-  background: linear-gradient(to right, #ED1C24, #FFD700);
+  /* Gradiente do ciano do dashboard */
+  background: linear-gradient(to right, #38B2AC, #66D1CD); /* Ciano para um ciano mais claro */
   border: none;
   color: #fff;
   font-weight: 600;
@@ -79,21 +84,22 @@ html, body, #root {
   width: 100%;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   font-size: 1rem;
   text-transform: uppercase;
 }
 
 .gradient-form .btn-login:hover {
-  opacity: 0.95;
+  /* Ligeiramente mais escuro no hover, ajustando o gradiente */
+  background: linear-gradient(to right, #2C8A86, #38B2AC); /* Ciano mais escuro */
   transform: scale(1.02);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
 /* (Regras para o botão 'Criar Conta' se você o tiver) */
 .gradient-form .btn-create {
-  border: 1px solid #ED1C24;
-  color: #ED1C24;
+  border: 1px solid #38B2AC;
+  color: #38B2AC;
   font-weight: 600;
   border-radius: 5px;
   padding: 10px 20px;
@@ -103,14 +109,15 @@ html, body, #root {
   transition: all 0.3s ease;
 }
 .gradient-form .btn-create:hover {
-  background: #ED1C24;
+  background: #38B2AC;
   color: #fff;
 }
 
-/* Lado direito do card */
+/* Lado direito do card (COM GRADIENTE DO DASHBOARD) */
 .gradient-form .gradient-side {
   flex: 1;
-  background: linear-gradient(to bottom right, #ED1C24, #FFD700);
+  /* Gradiente de cinza escuro para um cinza médio */
+  background: linear-gradient(to bottom right, #212529, #343A40); 
   color: white;
   display: flex;
   flex-direction: column;
@@ -126,5 +133,6 @@ html, body, #root {
 
 .gradient-form .gradient-side p {
   line-height: 1.6;
+  color: #E9ECEF; /* Texto um pouco mais suave que branco puro */
   text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.6);
 }

@@ -69,17 +69,12 @@ const Sidebar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/relatorios/mensal" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
+              <NavLink to="/relatorio/mensal" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
                 Mensal
               </NavLink>
             </li>
             <li>
-              <NavLink to="/relatorios/trimestral" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
-                Trimestral
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/relatorios/ranking" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
+              <NavLink to="/relatorio" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
                 Ranking Fornecedores
               </NavLink>
             </li>

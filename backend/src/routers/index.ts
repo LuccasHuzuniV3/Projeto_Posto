@@ -43,11 +43,11 @@ routes.delete('/preco/:id',isAdmin,precoDeleteController)// Deletar um preco
 
 
 //Combustivel
-routes.post('/combustivel',isAdmin,combustivelCreateController)
+routes.post('/combustivel',combustivelCreateController)
 routes.get('/combustivel',combustivelListController)
 routes.get('/combustivel/:id',isAdmin,combustivelListOneController)
-routes.put('/combustivel/:id', isAdmin,combustivelUpdateController)
-routes.delete('/combustivel/:id',isAdmin,combustivelDeleteController)
+routes.put('/combustivel/:id',combustivelUpdateController)
+routes.delete('/combustivel/:id',combustivelDeleteController)
 
 
 //Rotas dos fornecedor
