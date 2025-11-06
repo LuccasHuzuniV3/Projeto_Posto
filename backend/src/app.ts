@@ -33,6 +33,11 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  console.log("🔍 Origin recebido:", req.headers.origin);
+  next();
+});
+
 
 app.use(routes);
  
