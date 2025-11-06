@@ -1,5 +1,4 @@
 // src/app.ts
-//vam oooo
 import express, { Application, json } from "express";
 import cors from "cors";
 import { routes } from "./routers";
@@ -7,18 +6,18 @@ import session from "express-session";
 
 export const app: Application = express();
 
+// ✅ 1. Primeiro o CORS
 app.use(cors({
   origin: [
-    'http://localhost:3000',
-    'https://projeto-posto-liart.vercel.app',
-    'https://projeto-posto.vercel.app'
+    "http://localhost:3000",
+    "https://projeto-posto-liart.vercel.app",
+    "https://projeto-posto.vercel.app"
   ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 
-
 app.use(json());
-// Em src/app.ts
 
 app.use(
   session({
@@ -26,10 +25,10 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: { 
-      secure: false,    // MANTENHA 'false' para desenvolvimento em HTTP
-      httpOnly: true,   // Boa prática: impede que o JavaScript do front-end leia o cookie
-      sameSite: 'lax'   // A configuração que permite o envio em navegações
-    }, 
+      secure: false,
+      httpOnly: true,
+      sameSite: "lax"
+    },
   })
 );
 
@@ -38,6 +37,4 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.use(routes);
- 
