@@ -9,7 +9,10 @@ export const app: Application = express();
 //app.use(cors());
 
 app.use(cors({
-  origin: true,
+   origin: [
+    'http://localhost:3000',
+    'https://projeto-posto-liart.vercel.app', // 🔹 domínio do Vercel
+  ],
   credentials: true                
 }));
 
