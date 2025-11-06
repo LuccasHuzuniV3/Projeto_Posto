@@ -1,4 +1,5 @@
-const BASE_URL = 'http://localhost:5000';
+
+const BASE_URL = 'https://projeto-posto.onrender.com';
 
 
 //Busca um compras específico pelo ID.
