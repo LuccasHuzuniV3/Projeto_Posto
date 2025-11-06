@@ -6,15 +6,19 @@ import session from "express-session";
 
 export const app: Application = express();
 
-//app.use(cors());
+const allowedOrigins = [
+  "http://localhost:3000",                 // para rodar local
+  "https://projeto-posto-liart.vercel.app" // front hospedado na Vercel
+];
 
-app.use(cors({
-   origin: [
-    'http://localhost:3000',
-    'https://projeto-posto-liart.vercel.app', // 🔹 domínio do Vercel
-  ],
-  credentials: true                
-}));
+
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true, // permite envio de cookies
+  })
+);
 
 
 app.use(json());
