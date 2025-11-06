@@ -6,12 +6,9 @@ import session from "express-session";
 
 export const app: Application = express();
 
-// ✅ 1. Primeiro o CORS
 app.use(cors({
   origin: [
-    "http://localhost:3000",
     "https://projeto-posto-liart.vercel.app",
-    "https://projeto-posto.vercel.app"
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
