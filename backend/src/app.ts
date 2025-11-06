@@ -1,4 +1,5 @@
 // src/app.ts
+//vam oooo
 import express, { Application, json } from "express";
 import cors from "cors";
 import { routes } from "./routers";
