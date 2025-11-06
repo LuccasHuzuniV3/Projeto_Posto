@@ -1,6 +1,5 @@
 
-const BASE_URL = 'https://projeto-posto.onrender.com';
-
+const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 //Busca a lista completa de Combustivel.
 export const getCombustivel = async () => {
   const response = await fetch(`${BASE_URL}/combustivel`,{

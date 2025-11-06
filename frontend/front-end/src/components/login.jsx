@@ -16,7 +16,9 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await fetch('https://projeto-posto.onrender.com/login', {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
+      const response = await fetch(`${apiUrl}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include', // Essencial para o gerenciamento de cookies
