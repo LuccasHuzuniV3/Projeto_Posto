@@ -8,10 +8,6 @@ import '../css/dashboard.css';
 
 // --- NOVAS IMPORTAÇÕES DE ÍCONES ---
 import { FaSortUp, FaSortDown, FaSort } from 'react-icons/fa'; 
-// FaSortUp: seta para cima
-// FaSortDown: seta para baixo
-// FaSort: seta neutra (sem ordenação aplicada ou para indicar que pode ordenar)
-
 
 const Dashboard = () => {
   const [stats, setStats] = useState(null);

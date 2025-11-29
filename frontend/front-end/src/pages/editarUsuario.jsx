@@ -9,50 +9,48 @@ import { getOneUser, updateUser } from '../services/apiConfiguracao';
 import { getFornecedores } from '../services/apifornecedores';
 
 const EditarUsuario = () => {
-  const { id } = useParams(); // Pega o ID da URL (ex: /usuarios/editar/3)
+  const { id } = useParams();
   const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
-    // Não carregamos a senha por segurança
     role: 'Admin',
-    fornecedorId: ''
+    fornecedorId: '',
+    password: '' // CORRIGIDO: Nome consistente com o input
   });
+
   const [fornecedores, setFornecedores] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Efeito para buscar os dados do usuário e a lista de fornecedores
   useEffect(() => {
     const carregarDados = async () => {
       try {
-        // Faz as duas buscas em paralelo para mais eficiência
         const [userData, fornecedoresData] = await Promise.all([
           getOneUser(id),
           getFornecedores()
         ]);
 
-        // Preenche o formulário com os dados do usuário que vieram da API
         setFormData({
           nome: userData.nome,
           email: userData.email,
           role: userData.role,
-          // Garante que o fornecedorId seja uma string para o <select>
-          fornecedorId: userData.fornecedorId ? String(userData.fornecedorId) : ''
+          fornecedorId: userData.fornecedorId ? String(userData.fornecedorId) : '',
+          password: '' // CORRIGIDO: Mantemos vazio e com o nome 'password'
         });
 
         setFornecedores(fornecedoresData);
 
       } catch (error) {
         toast.error('Não foi possível carregar os dados para edição.');
-        navigate('/configuracao'); // Se der erro, volta para a lista
+        navigate('/configuracao');
       } finally {
         setLoading(false);
       }
     };
     
     carregarDados();
-  }, [id, navigate]); // Roda sempre que o ID na URL mudar
+  }, [id, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,7 +60,7 @@ const EditarUsuario = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Prepara os dados para o envio (sem a senha, a não ser que seja alterada)
+      // Prepara os dados básicos
       const userData = {
         nome: formData.nome,
         email: formData.email,
@@ -70,7 +68,13 @@ const EditarUsuario = () => {
         fornecedorId: formData.role === 'Fornecedor' ? Number(formData.fornecedorId) : null,
       };
 
-      await updateUser(id, userData); // Chama a API de atualização
+      // LÓGICA DA SENHA CORRIGIDA:
+      // Verifica o estado 'password', mas envia a chave 'senha' para o Back-end
+      if (formData.password && formData.password.trim() !== '') {
+        userData.senha = formData.password; 
+      }
+
+      await updateUser(id, userData);
       toast.success('Usuário atualizado com sucesso!');
       navigate('/configuracao');
     } catch (error) {
@@ -93,12 +97,43 @@ const EditarUsuario = () => {
             <h2 className="section-title">Dados de Acesso</h2>
             
             <label htmlFor="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} required />
+            <input 
+              type="text" 
+              id="nome" 
+              name="nome" 
+              value={formData.nome} 
+              onChange={handleChange} 
+              required 
+            />
 
             <label htmlFor="email">Email:</label>
-            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              value={formData.email} 
+              onChange={handleChange} 
+              required 
+            />
             
-            {/* O campo de senha pode ser adicionado aqui, mas geralmente é separado */}
+            {/* --- CAMPO DE SENHA --- */}
+            <div style={{ marginTop: '15px', marginBottom: '15px' }}>
+                <label htmlFor="password" style={{ color: '#2d3748', fontWeight: 'bold' }}>
+                    Nova Senha (Opcional):
+                </label>
+                <input 
+                  type="password" 
+                  id="password" 
+                  name="password" // O nome aqui deve bater com o formData
+                  value={formData.password} 
+                  onChange={handleChange} 
+                  placeholder="Deixe em branco para manter a senha atual"
+                  style={{ border: '1px solid #cbd5e0' }} 
+                />
+                <small style={{ color: '#718096', display: 'block', marginTop: '4px' }}>
+                    Preencha apenas se o usuário esqueceu a senha e precisa redefinir.
+                </small>
+            </div>
             
             <label htmlFor="role">Papel (Role):</label>
             <select id="role" name="role" value={formData.role} onChange={handleChange}>

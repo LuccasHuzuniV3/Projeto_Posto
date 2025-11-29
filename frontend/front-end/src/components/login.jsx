@@ -80,6 +80,7 @@ const Login = () => {
           </form>
         </div>
 
+        
         {/* --- LADO DIREITO (CONTEÚDO RESTAURADO) --- */}
         <div className="gradient-side">
           <h2>Somos mais que uma empresa</h2>
@@ -91,7 +92,7 @@ const Login = () => {
           </p>
         </div>
         {/* --- FIM DO CONTEÚDO RESTAURADO --- */}
-
+        
       </div>
     </section>
   );

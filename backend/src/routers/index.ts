@@ -15,12 +15,12 @@ routes.post('/register',registerController)
 routes.post('/login',loginController)
 
 //Rotas de fornecedor
-routes.post('/fornecedor',isAdmin,fornecedorCreateController)
-routes.get('/fornecedor',isAdmin,fornecedorListController)
-routes.get('/fornecedor/:id',isAdmin,fornecedorListOneController)
-routes.put('/fornecedor/:id',isAdmin,fornecedorUpdateController)
-routes.delete('/fornecedor/:id',isAdmin,fornecedorInativaController)
-routes.delete('/fornecedor/delete/:id',isAdmin,fornecedorDeleteController) // Rota para exclusão permanente
+routes.post('/fornecedor', isAdmin, fornecedorCreateController);
+routes.get('/fornecedor', isAdmin, fornecedorListController);
+routes.delete('/fornecedor/delete/:id', isAdmin, fornecedorDeleteController); 
+routes.get('/fornecedor/:id', isAdmin, fornecedorListOneController);   
+routes.put('/fornecedor/:id', isAdmin, fornecedorUpdateController);    
+routes.delete('/fornecedor/:id', isAdmin, fornecedorInativaController); 
 
 //Compras
 routes.post('/compras',isAdmin,comprasCreateController)
@@ -31,7 +31,6 @@ routes.put('/compras/:id',isAdmin,buyUpdateController)
 routes.delete('/compras/:id',isAdmin,buyDeleteController)
 
 //Preco
-
 routes.post('/preco',isAdmin,precoCreateController)// Cria um novo preco
 routes.get('/preco/atual',isAdmin,precoRecentController)//Preco mais recente
 routes.get('/precos/historico',isAdmin,precoHistoricoController)

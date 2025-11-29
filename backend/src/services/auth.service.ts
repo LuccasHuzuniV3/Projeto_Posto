@@ -114,8 +114,12 @@ export const userUpdateService = async(id:number,data:UserUpdate):Promise<UserRe
     }
 
     if (data.senha) {
-        // ...nós a criptografamos ANTES de salvar.
-        data.senha = await bcrypt.hash(data.senha, 10);
+      if (typeof data.senha === 'string' && data.senha.trim() === '') {
+            delete data.senha;
+        } else {
+            // Se tiver senha válida, criptografa
+            data.senha = await bcrypt.hash(data.senha, 10);
+        }
     }
 
     const user: UserReturn = await prisma.usuario.update({

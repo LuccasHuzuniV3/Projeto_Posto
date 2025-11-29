@@ -1,4 +1,4 @@
-/* src/css/paginaprecos.css - VERSÃO FINAL COM ORDENAÇÃO */
+/* src/css/paginaprecos.css - VERSÃO FINAL */
 
 .tabs-container {
   display: flex;
@@ -17,6 +17,7 @@
   color: #718096;
   border-bottom: 3px solid transparent;
   transform: translateY(2px);
+  transition: color 0.2s, border-bottom-color 0.2s;
 }
 
 .tab-button.active {
@@ -31,14 +32,31 @@
   overflow: hidden;
 }
 
-/* --- ESTILOS PARA OS CABEÇALHOS CLICÁVEIS --- */
+/* --- ESTILOS PARA OS CABEÇALHOS DA TABELA --- */
+
 .users-table thead th {
-  cursor: pointer; /* Mostra a "mãozinha" ao passar o mouse */
-  transition: background-color 0.2s;
-  user-select: none; /* Impede que o texto seja selecionado ao clicar */
+  cursor: pointer;       /* Mostra a "mãozinha" ao passar o mouse */
+  user-select: none;     /* Impede que o texto seja selecionado ao clicar rápido */
+  background-color: #f7fafc; /* Cor de fundo padrão do cabeçalho */
+  transition: background-color 0.2s ease;
+  padding: 12px 16px;    /* Espaçamento interno */
 }
 
 .users-table thead th:hover {
-  background-color: #f7fafc; /* Cor sutil de hover */
+  background-color: #edf2f7; /* Cor um pouco mais escura no hover para feedback */
 }
 
+/* --- NOVO: ALINHAMENTO DO CONTEÚDO (TEXTO + ÍCONE) --- */
+.th-content {
+  display: flex;
+  align-items: center;        /* Centraliza verticalmente a seta com o texto */
+  justify-content: flex-start; /* Alinha à esquerda (pode usar center se preferir) */
+  gap: 8px;                   /* Garante um espaço fixo entre o texto e a seta */
+  font-weight: 700;
+  color: #2d3748;
+}
+
+/* Ajuste opcional para as setas do React Icons dentro do th */
+.th-content svg {
+  flex-shrink: 0; /* Garante que a seta não seja esmagada se a coluna for estreita */
+}

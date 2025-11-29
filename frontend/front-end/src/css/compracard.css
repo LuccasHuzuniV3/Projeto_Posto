@@ -1,88 +1,130 @@
-/* src/css/compraCard.css - VERSÃO CORRIGIDA E SEGURA (SEM CONFLITOS) */
+/* src/css/compraCard.css - VERSÃO CLEAN (Estilo Imagem 2) */
 
 .compra-card {
   background-color: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  padding: 28px;
-  border: 1px solid #E2E8F0;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 24px; /* Mais espaçamento interno geral */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px; /* Espaço entre o topo e os dados */
+  position: relative; /* Para posicionamento absoluto se necessário */
 }
 
 .compra-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  border-color: #cbd5e0;
 }
 
-/* CORREÇÃO: A regra agora só se aplica ao .card-header DENTRO de um .compra-card */
-.compra-card .card-header {
+/* --- CABEÇALHO (Combustível - Fornecedor | Data + Icon) --- */
+.compra-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #f0f4f8; /* Linha sutil separando header */
+  padding-bottom: 12px;
+  margin-bottom: 4px;
+}
+
+/* Grupo de Título (Esquerda) */
+.header-info {
+  display: flex;
+  flex-direction: column; 
+}
+
+/* Estilo para ficar igual à Imagem 2: "Gasolina - CiaPetro" */
+.card-title-group {
+  font-size: 16px;
+  color: #2D3748;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-title-group .separator {
+  color: #CBD5E0;
+  font-weight: 400;
+}
+
+.card-title-group .fornecedor-light {
+  color: #718096; /* Cor cinza para o fornecedor */
+  font-weight: 500;
+}
+
+/* Lado Direito (Data e Ícone) */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px; 
+}
+
+.compra-data {
+  font-size: 12px;
+  color: #A0AEC0;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.delete-icon-btn {
+  background: transparent;
+  border: none;
+  color: #E53E3E; /* <-- MUDANÇA AQUI: Cor base agora é vermelha */
+  cursor: pointer;
+  font-size: 14px;
+  padding: 6px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.delete-icon-btn:hover {
+  /* A cor do texto já é vermelha, então só mantemos o efeito de fundo */
+  background-color: #FFF5F5; 
+  /* Se quiser que ele fique um vermelho mais escuro ao passar o mouse, descomente abaixo: */
+}
+
+/* --- CORPO DO CARD (Clean, sem fundo cinza) --- */
+.compra-card-body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid #EDF2F7;
-  padding-bottom: 16px;
-  margin-bottom: 20px;
+  /* Removemos o background-color e padding cinza aqui */
 }
 
-.compra-card .compra-titulo {
-  font-size: 20px;
-  font-weight: 700;
-  color: #2D3748;
-}
-
-.compra-card .compra-titulo span {
-  font-weight: 500;
-  color: #718096;
-}
-
-.compra-card .compra-data {
-  font-size: 15px;
-  font-weight: 600;
-  color: #718096;
-}
-
-/* CORREÇÃO: A regra agora só se aplica ao .card-body DENTRO de um .compra-card */
-.compra-card .card-body {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  gap: 40px;
-  padding-top: 10px;
-}
-
-.compra-card .detalhe-item {
+.info-item {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  min-width: 120px;
+  gap: 4px;
 }
 
-.compra-card .detalhe-item span {
+/* Alinhamento dos itens: Primeiro à esquerda, Ultimo à direita, Meio centralizado */
+.info-item:first-child { align-items: flex-start; }
+.info-item:nth-child(2) { align-items: center; } /* Preço unitário no centro visualmente fica bom, ou left também */
+.info-item:last-child { align-items: flex-end; }
+
+.info-item span {
+  font-size: 11px;
+  color: #A0AEC0;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 600;
+}
+
+.info-item strong {
   font-size: 15px;
-  color: #718096;
-}
-
-.compra-card .detalhe-item strong {
-  font-size: 22px;
-  font-weight: 700;
   color: #2D3748;
+  font-weight: 700;
 }
 
-.compra-card .detalhe-item.total strong {
-  color: #319795;
-  font-size: 26px;
-}
-
-/* As regras de responsividade também são mais específicas agora */
-@media (max-width: 768px) {
-  .compra-card .card-body {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .compra-card .detalhe-item strong {
-    font-size: 20px;
-  }
+/* Destaque VERDE para o Custo Total (igual imagem 2) */
+.info-item.total strong {
+  color: #38B2AC; /* Verde Teal */
+  font-size: 18px;
 }

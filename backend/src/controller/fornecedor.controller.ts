@@ -73,6 +73,7 @@ export const fornecedorDeleteController = async(req:Request, res: Response):Prom
         const fornecedor:FornecedorReturn = await fornecedorDeleteService(id);
         return res.status(204).json({message: 'Fornecedor apagado com sucesso'});
     } catch(error){
+        console.log(error);
         return res.status(404).json({ message: 'Fornecedor não encontrado' });
     }
 
