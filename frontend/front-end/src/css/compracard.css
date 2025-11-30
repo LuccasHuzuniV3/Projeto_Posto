@@ -128,3 +128,42 @@
   color: #38B2AC; /* Verde Teal */
   font-size: 18px;
 }
+/* --- RESPONSIVIDADE DO CARD DE COMPRA --- */
+
+@media (max-width: 768px) {
+  .compra-card {
+    padding: 16px; /* Menos borda no celular */
+  }
+
+  /* Cabeçalho vira coluna */
+  .compra-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: space-between; /* Data na esquerda, lixeira na direita */
+    margin-top: 8px;
+  }
+
+  /* Corpo vira coluna */
+  .compra-card-body {
+    grid-template-columns: 1fr; /* Uma única coluna */
+    gap: 12px;
+    text-align: left; /* Alinha texto à esquerda para leitura natural */
+  }
+
+  .info-item {
+    flex-direction: row; /* Rótulo e Valor na mesma linha */
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0; /* Linha separadora suave */
+    padding-bottom: 8px;
+  }
+
+  .info-item:last-child {
+    border-bottom: none;
+  }
+}

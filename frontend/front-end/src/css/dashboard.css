@@ -210,3 +210,29 @@
   border-top-color: #38B2AC;
   opacity: 1;
 }
+/* --- RESPONSIVIDADE DA TABELA DE ATIVIDADE RECENTE --- */
+
+@media (max-width: 768px) {
+  /* 1. Garante que o container da tabela não estoure a tela */
+  .recent-activity-section .table-container {
+    width: 100%;          /* Ocupa 100% da largura do celular */
+    overflow-x: auto;     /* Habilita a barra de rolagem horizontal */
+    -webkit-overflow-scrolling: touch; /* Deixa a rolagem suave no iPhone */
+    display: block;       /* Garante o comportamento de bloco */
+    border: 1px solid #e2e8f0; /* Borda sutil para indicar limite */
+  }
+
+  /* 2. Força a tabela a ter uma largura mínima */
+  /* Isso impede que o texto fique "espremido". Se a tela for menor que 600px, vai aparecer a rolagem. */
+  .recent-activity-section .users-table {
+    min-width: 600px; 
+  }
+
+  /* 3. Ajuste de texto para mobile */
+  .users-table th, 
+  .users-table td {
+    white-space: nowrap; /* Impede que o texto quebre linha e fique feio */
+    padding: 12px 10px;  /* Ajusta o espaçamento */
+    font-size: 14px;     /* Tamanho de fonte legível */
+  }
+}
