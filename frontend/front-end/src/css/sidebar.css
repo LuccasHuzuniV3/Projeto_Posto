@@ -1,100 +1,125 @@
-/* src/css/sidebar.css - VERSÃO FINAL */
+/* src/css/sidebar.css - VERSÃO FINAL (Animação Suave) */
 
 .sidebar {
-  width: 280px;
   height: 100vh;
   background-color: #2b2b2b;
   color: #E2E8F0;
-  padding: 24px;
   display: flex;
   flex-direction: column;
   font-family: 'Montserrat', sans-serif;
-  
   position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
+  transition: width 0.3s ease; /* Animação da largura */
+  overflow-x: hidden; /* Esconde o que vazar */
 }
 
-.sidebar-logo { 
-  display: flex; 
-  align-items: center; 
-  margin-bottom: 40px; 
+/* Larguras */
+.sidebar.open { width: 280px; padding: 24px; }
+.sidebar.closed { width: 80px; padding: 24px 10px; }
+
+/* Cabeçalho */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  height: 40px;
+}
+.sidebar.closed .sidebar-header {
+  justify-content: center;
+  flex-direction: column-reverse;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
-.logo-icon { 
-  color: #E53E3E; 
-  margin-right: 12px; 
+/* Botão Toggle Limpo */
+.sidebar-toggle-btn {
+  background: transparent;
+  border: none;
+  color: #718096;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 4px;
+  transition: color 0.2s;
 }
+.sidebar-toggle-btn:hover { color: #38B2AC; }
 
-.logo-text { 
-  font-size: 22px; 
-  font-weight: 700; 
-  letter-spacing: 1px; 
-}
+/* Logo */
+.logo-text { font-size: 22px; font-weight: 700; white-space: nowrap; }
+.logo-text-highlight { color: #38B2AC; margin-left: 5px; }
+.logo-icon { color: #E53E3E; transition: margin 0.3s; }
 
-.logo-text-highlight { 
-  color: #38B2AC; 
-  margin-left: 5px; 
-}
-
-.nav-section { 
-  margin-top: 30px; 
-}
-
-.section-title { 
-  font-size: 14px; 
-  font-weight: 700; 
-  text-transform: uppercase; 
-  color: #A0AEC0; 
-  margin-bottom: 12px; 
-  letter-spacing: 0.5px; 
-}
-
+/* Links */
 .nav-link-dashboard {
   display: flex; align-items: center; padding: 12px; border-radius: 8px;
   color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 18px;
-  transition: background-color 0.2s;
+  white-space: nowrap; transition: background 0.2s;
 }
-.nav-link-dashboard.active {
-  background-color: #4A5568;
-}
-.nav-link-dashboard:not(.active):hover {
-  background-color: #3a475a;
-}
-.nav-link-dashboard svg { margin-right: 16px; }
+.sidebar.closed .nav-link-dashboard { justify-content: center; }
 
-.nav-list {
-  list-style-type: none;
-  padding-left: 10px;
-  margin: 0;
+.nav-section { margin-top: 30px; }
+.section-title {
+  font-size: 14px; font-weight: 700; color: #A0AEC0; margin-bottom: 12px;
+  white-space: nowrap; opacity: 1; transition: opacity 0.2s;
 }
-.nav-list li {
-  margin-bottom: 4px;
-  background: transparent !important;
-}
+.sidebar.closed .section-title { opacity: 0; height: 0; margin: 0; visibility: hidden; }
 
-.link-item {
-  display: block; width: 100%; padding: 8px 12px;
-  color: #E2E8F0; text-decoration: none; font-size: 16px;
-  border-radius: 6px;
-  transition: color 0.2s, background-color 0.2s, transform 0.2s ease-out;
-}
+.nav-list { list-style: none; padding-left: 10px; margin: 0; }
+.sidebar.closed .nav-list { padding-left: 0; text-align: center; }
 
-.link-item-ativo {
+.link-item, .link-item-ativo {
   display: block; width: 100%; padding: 8px 12px;
   text-decoration: none; font-size: 16px; border-radius: 6px;
-  background-color: #4A5568;
-  color: #FFFFFF;
-  font-weight: 700;
-  transition: transform 0.2s ease-out;
+  transition: all 0.2s; white-space: nowrap;
+}
+.sidebar.closed .link-item, .sidebar.closed .link-item-ativo {
+  font-size: 12px; padding: 10px 2px; text-align: center;
 }
 
-.link-item:hover, .link-item-ativo:hover {
-  background-color: #3a475a;
-  color: #FFFFFF;
-  transform: translateX(5px);
+.link-item { color: #E2E8F0; }
+.link-item-ativo { background-color: #4A5568; color: #FFFFFF; font-weight: 700; }
+.link-item:hover { background-color: #3a475a; color: #FFFFFF; }
+
+/* Logout */
+.logout-section { margin-top: auto; padding-top: 20px; border-top: 1px solid #4A5568; }
+.sidebar.closed .logout-section { border-top: none; }
+.logout-button-sidebar {
+  display: flex; align-items: center; justify-content: center; width: 100%; padding: 12px;
+  background: transparent; color: #E53E3E; border: 1px solid #E53E3E; border-radius: 8px;
+  font-size: 16px; font-weight: 700; cursor: pointer; white-space: nowrap;
 }
-.link-item-ativo:hover {
-  background-color: #4A5568;
+.logout-button-sidebar:hover { background-color: #E53E3E; color: white; }
+/* --- RESPONSIVIDADE DA SIDEBAR --- */
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    height: 100vh;
+    z-index: 100;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.2); /* Sombra para destacar */
+  }
+
+  /* No celular, "closed" significa ESCONDIDO (-100%), não "pequeno" (80px) */
+  .sidebar.closed {
+    width: 280px; /* Mantém largura cheia */
+    transform: translateX(-100%); /* Joga para fora da tela */
+    padding: 24px; /* Reseta o padding */
+  }
+
+  /* "Open" traz de volta para a tela */
+  .sidebar.open {
+    width: 280px;
+    transform: translateX(0);
+  }
+  
+  /* Esconde o botão de toggle interno da sidebar no mobile, já temos o externo */
+  .sidebar-toggle-btn {
+    display: none; 
+  }
 }

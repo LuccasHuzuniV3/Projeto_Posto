@@ -1,110 +1,140 @@
-// src/components/Sidebar.jsx - VERSÃO CORRIGIDA COM SUAS ROTAS ORIGINAIS
+// src/components/Sidebar.jsx
 
 import React from 'react';
-import { FaGasPump } from "react-icons/fa";
+import { FaGasPump, FaSignOutAlt, FaBars, FaChevronLeft } from "react-icons/fa";
 import { GoHome } from "react-icons/go";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from '../context/authContext';
 
 import '../css/sidebar.css';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, toggleSidebar }) => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
-    <aside className="sidebar">
-      <div className="sidebar-logo">
-        <FaGasPump size={36} className="logo-icon" />
-        <h1 className="logo-text"><span>POSTO</span><span className="logo-text-highlight">MERCADO</span></h1>
+    <aside className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
+      
+      {/* CABEÇALHO: Logo e Botão de Toggle na mesma linha */}
+      <div className="sidebar-header">
+        <div className="sidebar-logo">
+          {/* Só mostra o texto se estiver aberto */}
+          {isOpen && (
+            <h1 className="logo-text">
+              <span>POSTO</span><span className="logo-text-highlight">MERCADO</span>
+            </h1>
+          )}
+        </div>
+
+        {/* Botão Limpo e Transparente */}
+        <button className="sidebar-toggle-btn" onClick={toggleSidebar}>
+          {isOpen ? <FaChevronLeft /> : <FaBars />}
+        </button>
       </div>
 
       <nav className="sidebar-nav">
-        {/* Link do Dashboard */}
         <NavLink
           to="/dashboard"
           className={({ isActive }) => isActive ? 'nav-link-dashboard active' : 'nav-link-dashboard'}
+          title={!isOpen ? "Dashboard" : ""}
         >
-          <GoHome size={24} />
-          <span>Dashboard</span>
+          <div className="icon-container"><GoHome size={24} /></div>
+          {isOpen && <span>Dashboard</span>}
         </NavLink>
 
-        {/* Seção de Preços */}
+        {/* --- SEÇÕES (Só mostram título se aberto) --- */}
+        
+        {/* PREÇOS */}
         <div className="nav-section">
-          <h2 className="section-title">PREÇOS</h2>
+          {isOpen && <h2 className="section-title">PREÇOS</h2>}
           <ul className="nav-list">
             <li>
-              {/* Adicionei 'end' aqui para não marcar quando estiver no histórico */}
-              <NavLink to="/precos" end className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
-                Comparativo
+              <NavLink to="/precos" end className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"} title={!isOpen ? "Comparativo" : ""}>
+                <div className="link-content">{isOpen ? "Comparativo" : "Comp"}</div>
               </NavLink>
             </li>
             <li>
-              <NavLink to="/historico/precos" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
-                Histórico
+              <NavLink to="/historico/precos" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"} title={!isOpen ? "Histórico" : ""}>
+                <div className="link-content">{isOpen ? "Histórico" : "Hist"}</div>
               </NavLink>
             </li>
           </ul>
         </div>
         
-        {/* Seção de Fornecedores */}
+        {/* FORNECEDORES */}
         <div className="nav-section">
-          <h2 className="section-title">FORNECEDORES</h2>
+          {isOpen && <h2 className="section-title">FORNECEDORES</h2>}
           <ul className="nav-list">
             <li>
-              <NavLink to="/fornecedores/cadastrar" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
-                Cadastrar
+              <NavLink to="/fornecedores/cadastrar" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"} title={!isOpen ? "Cadastrar" : ""}>
+                <div className="link-content">{isOpen ? "Cadastrar" : "Cad"}</div>
               </NavLink>
             </li>
             <li>
-              <NavLink to="/fornecedor/listar" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
-                Listar
+              <NavLink to="/fornecedor/listar" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"} title={!isOpen ? "Listar" : ""}>
+                 <div className="link-content">{isOpen ? "Listar" : "List"}</div>
               </NavLink>
             </li>
           </ul>
         </div>
 
-        {/* Seção de Relatórios */}
+        {/* RELATÓRIOS */}
         <div className="nav-section">
-          <h2 className="section-title">RELATÓRIOS</h2>
+          {isOpen && <h2 className="section-title">RELATÓRIOS</h2>}
           <ul className="nav-list">
             <li>
-              <NavLink to="/relatorios/semanal" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
-                Semanal
+              <NavLink to="/relatorios/semanal" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"} title={!isOpen ? "Semanal" : ""}>
+                 <div className="link-content">{isOpen ? "Semanal" : "Sem"}</div>
               </NavLink>
             </li>
             <li>
-              <NavLink to="/relatorio/mensal" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
-                Mensal
+              <NavLink to="/relatorio/mensal" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"} title={!isOpen ? "Mensal" : ""}>
+                 <div className="link-content">{isOpen ? "Mensal" : "Mês"}</div>
               </NavLink>
             </li>
             <li>
-              {/* Adicionei 'end' aqui porque '/relatorio' é pai de '/relatorio/mensal' */}
-              <NavLink to="/relatorio" end className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
-                Ranking Fornecedores
+              <NavLink to="/relatorio" end className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"} title={!isOpen ? "Ranking" : ""}>
+                 <div className="link-content">{isOpen ? "Ranking" : "Rank"}</div>
               </NavLink>
             </li>
           </ul>
         </div>
 
-        {/* Seção de Compras */}
+        {/* COMPRAS */}
         <div className="nav-section">
-          <h2 className="section-title">COMPRAS</h2>
+          {isOpen && <h2 className="section-title">COMPRAS</h2>}
           <ul className="nav-list">
             <li>
-              <NavLink to="/compras" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
-                Historico e Simulador
+              <NavLink to="/compras" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"} title={!isOpen ? "Histórico e Simulador" : ""}>
+                 <div className="link-content">{isOpen ? "Histórico/Sim" : "H/S"}</div>
               </NavLink>
             </li>
           </ul>
         </div>
 
-        {/* Seção de Configurações */}
+        {/* CONFIGURAÇÕES */}
         <div className="nav-section">
-          <h2 className="section-title">CONFIGURAÇÕES</h2>
+          {isOpen && <h2 className="section-title">CONFIGURAÇÕES</h2>}
           <ul className="nav-list">
             <li>
-              <NavLink to="/configuracao" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
-                Configurações
+              <NavLink to="/configuracao" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"} title={!isOpen ? "Configurações" : ""}>
+                 <div className="link-content">{isOpen ? "Configurações" : "Conf"}</div>
               </NavLink>
             </li>
           </ul>
+        </div>
+        
+        {/* LOGOUT */}
+        <div className="nav-section logout-section">
+            <button onClick={handleLogout} className="logout-button-sidebar" title="Sair">
+                <FaSignOutAlt style={{ marginRight: isOpen ? '10px' : '0' }} />
+                {isOpen && "Sair"}
+            </button>
         </div>
 
       </nav>

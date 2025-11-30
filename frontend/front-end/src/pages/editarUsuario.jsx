@@ -167,7 +167,7 @@ const EditarUsuario = () => {
                 onChange={handleChange}
                 required
               >
-                <option value="">Selecione...</option>
+                <option value="" hidden>Selecione...</option>
 
                 {fornecedores.map(f => (
                   <option key={f.id} value={f.id}>

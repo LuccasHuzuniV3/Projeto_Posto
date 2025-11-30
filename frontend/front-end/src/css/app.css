@@ -1,4 +1,4 @@
-/* src/css/app.css - VERSÃO COMPLETA E CORRIGIDA */
+/* src/css/app.css - VERSÃO FINAL, COMPLETA E ESTÁVEL */
 
 /* --- 1. RESET GLOBAL E FONTES --- */
 * {
@@ -6,32 +6,37 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 html, body, #root {
   height: 100%;
   width: 100%;
 }
+
 body {
   font-family: 'Montserrat', sans-serif;
   background-color: #EDF2F7; /* Fundo cinza claro */
   color: #2D3748; /* Cor de texto padrão (escura) */
 }
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-/* --- LAYOUT PRINCIPAL (A CORREÇÃO ESTÁ AQUI) --- */
+
+/* --- 2. LAYOUT PRINCIPAL --- */
 .main-content {
   margin-left: 280px; /* Abre espaço para a sidebar fixa */
   padding: 40px;      /* Adiciona um "respiro" em volta de todo o conteúdo */
 }
 
-/* --- CONTAINERS DAS PÁGINAS --- */
+
+/* --- 3. CONTAINERS DAS PÁGINAS --- */
 .container-fornecedores,
 .container-cadastro {
   max-width: 1400px;
   margin: 0 auto;
-  /* O padding foi movido para o .main-content para ser global */
+  /* O padding já está no .main-content */
 }
 
-/* Base para TODOS os cabeçalhos de página */
+/* --- 4. CABEÇALHOS DE PÁGINA --- */
 .page-header {
   display: flex;
   margin-bottom: 40px;
@@ -48,15 +53,17 @@ body {
   font-weight: 700;
   color: #1A202C;
   text-transform: uppercase;
+  background: none; /* Garante fundo transparente */
 }
 .page-subtitle {
   font-size: 16px;
   color: #718096;
   margin-top: 4px;
+  background: none;
 }
 
 
-/* --- GRIDS --- */
+/* --- 5. GRIDS --- */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr); 
@@ -69,7 +76,7 @@ body {
 }
 
 
-/* --- SEÇÕES DE FORMULÁRIO E CARDS BRANCOS --- */
+/* --- 6. SEÇÕES DE FORMULÁRIO E CARDS BRANCOS --- */
 .form-section {
   background-color: #ffffff;
   padding: 24px;
@@ -89,7 +96,7 @@ body {
 }
 
 
-/* --- CAMPOS DE FORMULÁRIO (Inputs, Labels, etc.) --- */
+/* --- 7. CAMPOS DE FORMULÁRIO (Inputs, Labels, etc.) --- */
 .form-cadastro label {
   display: block;
   font-weight: 600;
@@ -97,12 +104,16 @@ body {
   margin-bottom: 8px;
   font-size: 15px;
 }
+
+/* Regra unificada para todos os inputs e selects */
 .form-cadastro input[type="text"],
 .form-cadastro input[type="email"],
 .form-cadastro input[type="number"],
 .form-cadastro input[type="password"],
 .form-cadastro textarea,
-.form-cadastro select {
+.form-cadastro select,
+.container-fornecedores select, /* Para selects fora do formulário padrão */
+.container-cadastro select {
   width: 100%;
   padding: 12px;
   border: 1px solid #E2E8F0;
@@ -114,16 +125,18 @@ body {
   color: #2D3748;
   font-family: 'Montserrat', sans-serif;
 }
+
 .form-cadastro input:focus,
 .form-cadastro textarea:focus,
-.form-cadastro select:focus {
+.form-cadastro select:focus,
+.container-fornecedores select:focus {
   outline: none;
   border-color: #38B2AC;
   box-shadow: 0 0 0 1px #38B2AC;
 }
 
 
-/* --- BOTÕES --- */
+/* --- 8. BOTÕES --- */
 .add-button {
   display: flex; align-items: center; gap: 8px;
   background-color: #38B2AC;
@@ -151,7 +164,7 @@ body {
 .action-buttons { display: flex; gap: 16px; }
 
 
-/* --- SPINNER E DROPDOWN --- */
+/* --- 9. COMPONENTES ESPECÍFICOS (SPINNER, DROPDOWN) --- */
 .feedback-container { display: flex; justify-content: center; align-items: center; height: 80vh; }
 .loading-spinner {
   width: 50px; height: 50px; border: 6px solid #f3f3f3;
@@ -177,8 +190,7 @@ body {
 .dropdown-menu div { padding: 12px 20px; cursor: pointer; }
 .dropdown-menu div:hover { background-color: #f0f0f0; }
 
-
-/* Adicione no final do seu app.css */
+/* --- 10. ANIMAÇÕES E AJUSTES DE LISTA --- */
 .historico-lista {
   display: flex;
   flex-direction: column;
@@ -186,16 +198,99 @@ body {
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fadeIn {
   animation: fadeIn 0.25s ease-in-out;
+}
+/* --- RESPONSIVIDADE (Telas menores que 768px - Celulares e Tablets) --- */
+
+@media (max-width: 768px) {
+  
+  /* 1. Ajuste do Layout Principal */
+  .main-content {
+    margin-left: 0 !important; /* Remove o espaço da sidebar */
+    padding: 20px !important;  /* Reduz o respiro */
+    width: 100%;
+  }
+
+  /* 2. Ajuste dos Grids (Cards um embaixo do outro) */
+  .grid-container,
+  .dashboard-grid,
+  .form-grid, 
+  .filtros-container {
+    grid-template-columns: 1fr !important; /* Força uma única coluna */
+    gap: 16px;
+  }
+
+  /* 3. Ajuste dos Formulários */
+  .form-section {
+    padding: 16px; /* Menos padding interno */
+  }
+
+  /* 4. Tabelas com rolagem horizontal */
+  .table-container {
+    overflow-x: auto; /* Permite rolar a tabela se não couber */
+  }
+  
+  .users-table th, 
+  .users-table td {
+    padding: 12px 8px; /* Reduz espaçamento das células */
+    font-size: 13px;   /* Fonte um pouco menor */
+    white-space: nowrap; /* Impede quebra de texto feia na tabela */
+  }
+
+  /* 5. Ajuste do Cabeçalho da Página */
+  .page-header {
+    flex-direction: column; /* Título em cima, botão embaixo */
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .add-button {
+    width: 100%; /* Botão ocupa a largura toda no celular */
+    justify-content: center;
+  }
+}
+
+/* --- BOTÃO DE MENU MOBILE --- */
+.mobile-menu-btn {
+  display: none; /* Escondido por padrão no Desktop */
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #2D3748;
+  cursor: pointer;
+  margin-bottom: 20px; /* Espaço antes do conteúdo */
+}
+
+/* Overlay (Fundo escuro quando menu abre no celular) */
+.mobile-overlay {
+  display: none;
+}
+
+/* --- MEDIA QUERY (CELULAR) --- */
+@media (max-width: 768px) {
+  /* Mostra o botão no celular */
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  /* O conteúdo ocupa a tela toda sempre no mobile */
+  .main-content.open,
+  .main-content.closed {
+    margin-left: 0 !important;
+    padding: 20px;
+  }
+
+  /* O overlay aparece quando o menu está aberto */
+  .mobile-overlay {
+    display: block;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 90; /* Fica atrás da sidebar (100) mas na frente do conteúdo */
+  }
 }

@@ -23,7 +23,6 @@ import PaginaPrecos from "./pages/paginaPrecos";
 import PaginaHistoricoPrecos from "./pages/historicoPrecos";
 import Mensal from "./pages/mensal";
 import Semanal from "./pages/semanal";
-import Fornecedor from "./pages/fornecedor";
 
 import "./css/app.css";
 
@@ -48,7 +47,6 @@ function App() {
               <Route path="/usuarios/editar/:id" element={<EditarUsuario />} />
               <Route path="/relatorio/mensal" element={<Mensal />} />
               <Route path="/relatorios/semanal" element={<Semanal />} />
-              <Route path="/relatorio" element={<Fornecedor />} />
             </Route>
           </Route>
           <Route element={<ProtectedRoute allowedRoles={['Fornecedor']} />}>
