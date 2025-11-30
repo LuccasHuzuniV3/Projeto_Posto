@@ -97,11 +97,6 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                  <div className="link-content">{isOpen ? "Mensal" : "Mês"}</div>
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/relatorio" end className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"} title={!isOpen ? "Ranking" : ""}>
-                 <div className="link-content">{isOpen ? "Ranking" : "Rank"}</div>
-              </NavLink>
-            </li>
           </ul>
         </div>
 
