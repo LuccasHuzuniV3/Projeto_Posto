@@ -49,7 +49,7 @@ const HistoricoCompras = () => {
           <h1 className="page-title">HISTÓRICO DE COMPRAS</h1>
           <p className="page-subtitle">Visualize as compras já registradas.</p>
         </div>
-        <button className="add-button" onClick={() => navigate('/compras/simular')}>
+        <button className="add-button" onClick={() => navigate('/simulador/compra')}>
           <FaPlus />
           Simular Nova Compra
         </button>

@@ -174,8 +174,8 @@ export const precoComparativoService = async(idCombustivel:number):Promise<any[]
                 fornecedorId:fornecedorAtual.id,
                 combustivelId:idCombustivel
             },
-            orderBy:{
-                valor:'desc'
+         orderBy:{
+                dataCadastro: 'desc'
             },
         })
 

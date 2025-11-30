@@ -1,20 +1,18 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { getUsers } from '../services/apiConfiguracao'; // Importando a função da API
-import '../css/listauser.css'
-
+import { getUsers, deleteUser } from '../services/apiConfiguracao';
+import '../css/listauser.css';
 
 const ListaUsuarios = () => {
   const navigate = useNavigate();
-  
+
   const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Efeito para buscar os usuários quando a página carregar
+  // Carregar lista ao iniciar
   useEffect(() => {
     const carregarUsuarios = async () => {
       try {
@@ -29,7 +27,23 @@ const ListaUsuarios = () => {
     };
 
     carregarUsuarios();
-  }, []); // O array vazio [] garante que a busca seja feita apenas uma vez
+  }, []);
+
+  // Função para excluir
+  const handleDelete = async (id) => {
+    if (!window.confirm("Deseja realmente excluir este usuário?")) return;
+
+    try {
+      await deleteUser(id);
+      toast.success("Usuário excluído com sucesso!");
+
+      // Remove da lista sem recarregar
+      setUsuarios((prev) => prev.filter((user) => user.id !== id));
+    } catch (err) {
+      toast.error("Erro ao excluir usuário.");
+      console.error(err);
+    }
+  };
 
   if (loading) {
     return <div className="feedback-container"><div className="loading-spinner"></div></div>;
@@ -40,7 +54,7 @@ const ListaUsuarios = () => {
   }
 
   return (
-    <div className="container-fornecedores"> {/* Reutilizando o estilo do container */}
+    <div className="container-fornecedores">
       <header className="page-header">
         <div>
           <h1 className="page-title">GERENCIAR USUÁRIOS</h1>
@@ -51,7 +65,7 @@ const ListaUsuarios = () => {
           Novo Usuário
         </button>
       </header>
-      
+
       <main>
         <table className="users-table">
           <thead>
@@ -66,8 +80,21 @@ const ListaUsuarios = () => {
               <tr key={usuario.id}>
                 <td>{usuario.email}</td>
                 <td>{usuario.role}</td>
-                <td>
-                  <button className="edit-button-table" onClick={() => navigate(`/usuarios/editar/${usuario.id}`)}>Editar</button>
+                <td className="action-buttons">
+                  <button
+                    className="edit-button-table"
+                    onClick={() => navigate(`/usuarios/editar/${usuario.id}`)}
+                  >
+                    Editar
+                  </button>
+
+                  <button
+                    className="delete-button-table"
+                    onClick={() => handleDelete(usuario.id)}
+                    style={{ marginLeft: '10px', backgroundColor: '#d9534f', color: '#fff' }}
+                  >
+                    Excluir
+                  </button>
                 </td>
               </tr>
             ))}

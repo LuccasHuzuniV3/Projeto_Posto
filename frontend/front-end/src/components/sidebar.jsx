@@ -1,11 +1,11 @@
-// src/components/Sidebar.jsx
+// src/components/Sidebar.jsx - VERSÃO CORRIGIDA COM SUAS ROTAS ORIGINAIS
 
 import React from 'react';
 import { FaGasPump } from "react-icons/fa";
 import { GoHome } from "react-icons/go";
-import { NavLink } from "react-router-dom"; // Usando NavLink
+import { NavLink } from "react-router-dom";
 
-import '../css/sidebar.css'; // Certifique-se que o caminho está correto
+import '../css/sidebar.css';
 
 const Sidebar = () => {
   return (
@@ -30,7 +30,8 @@ const Sidebar = () => {
           <h2 className="section-title">PREÇOS</h2>
           <ul className="nav-list">
             <li>
-              <NavLink to="/precos" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
+              {/* Adicionei 'end' aqui para não marcar quando estiver no histórico */}
+              <NavLink to="/precos" end className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
                 Comparativo
               </NavLink>
             </li>
@@ -74,16 +75,17 @@ const Sidebar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/relatorio" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
+              {/* Adicionei 'end' aqui porque '/relatorio' é pai de '/relatorio/mensal' */}
+              <NavLink to="/relatorio" end className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
                 Ranking Fornecedores
               </NavLink>
             </li>
           </ul>
         </div>
 
-        {/* Seção do Simulador */}
+        {/* Seção de Compras */}
         <div className="nav-section">
-          <h2 className="section-title">Compras</h2>
+          <h2 className="section-title">COMPRAS</h2>
           <ul className="nav-list">
             <li>
               <NavLink to="/compras" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>
@@ -92,9 +94,10 @@ const Sidebar = () => {
             </li>
           </ul>
         </div>
-        {/* Seção do Simulador */}
+
+        {/* Seção de Configurações */}
         <div className="nav-section">
-          <h2 className="section-title">Configurações</h2>
+          <h2 className="section-title">CONFIGURAÇÕES</h2>
           <ul className="nav-list">
             <li>
               <NavLink to="/configuracao" className={({ isActive }) => isActive ? "link-item-ativo" : "link-item"}>

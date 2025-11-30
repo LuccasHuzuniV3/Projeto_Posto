@@ -170,3 +170,7 @@ const EditarUsuario = () => {
 };
 
 export default EditarUsuario;
+
+//Pop up fornecedor
+//Tirar opcao combustivel
+//Desmarcar relatorios
