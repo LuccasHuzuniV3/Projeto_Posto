@@ -26,41 +26,52 @@ export const dashboardCountFornecedorService = async():Promise<DashboardCountFor
 }
 
 //Melhores precos por combustivel
-export const dashboardMelhoresPrecosService = async():Promise<DashboardMelhoresPrecos[]> => {
+export const dashboardMelhoresPrecosService = async (): Promise<DashboardMelhoresPrecos[]> => {
 
-    let combustiveis = await prisma.combustivel.findMany()
+    const combustiveis = await prisma.combustivel.findMany();
+    const melhoresPrecos: DashboardMelhoresPrecos[] = [];
 
-   const melhoresPrecos: DashboardMelhoresPrecos[] = [];
-
-    for (const combustivelAtual of combustiveis) {
-
-        let preco = await prisma.preco.findFirst({
-            where:{
-                combustivelId:combustivelAtual.id
+    for (const combustivel of combustiveis) {
+        
+        // 1. Buscamos TODOS os preços deste combustível, ordenados do MAIS RECENTE para o antigo
+        const historicoPrecos = await prisma.preco.findMany({
+            where: {
+                combustivelId: combustivel.id
             },
-            orderBy:{
-                valor:'asc'
+            orderBy: {
+                dataCadastro: 'desc'
             },
-            include:{
-                fornecedor:{
-                    select:{
-                        nome:true
-                    }
+            include: {
+                fornecedor: {
+                    select: { nome: true }
                 }
             }
-        })
+        });
+        const precosAtuais = new Map();
+        for (const p of historicoPrecos) {
+            if (!precosAtuais.has(p.fornecedorId)) {
+                precosAtuais.set(p.fornecedorId, p);
+            }
+        }
 
-        if(preco){
+        let melhorPrecoAtual = null;
+
+        for (const p of precosAtuais.values()) {
+            if (!melhorPrecoAtual || p.valor < melhorPrecoAtual.valor) {
+                melhorPrecoAtual = p;
+            }
+        }
+        
+        if (melhorPrecoAtual) {
             melhoresPrecos.push({
-                combustivel:combustivelAtual.tipo,
-                valor:preco.valor,
-                fornecedor:preco.fornecedor.nome
-            })
+                combustivel: combustivel.tipo,
+                valor: melhorPrecoAtual.valor,
+                fornecedor: melhorPrecoAtual.fornecedor.nome
+            });
         }
     }
 
     return melhoresPrecos;
-
 }
 
 //Ultimas compras realizadas

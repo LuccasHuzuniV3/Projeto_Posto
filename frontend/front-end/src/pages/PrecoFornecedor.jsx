@@ -76,7 +76,7 @@ const PrecoFornecedor = () => {
               value={formData.combustivelId}
               onChange={handleChange}
             >
-              <option value="">Selecione o combustível</option>
+              <option value="" hidden>Selecione o combustível</option>
 
               {combustiveis.map(c => (
                 <option key={c.id} value={c.id}>{c.tipo}</option>
