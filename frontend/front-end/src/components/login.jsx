@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
+import { Fuel } from 'lucide-react'; // Importando o ícone
 import '../css/login.css';
 
 const Login = () => {
@@ -21,7 +22,7 @@ const Login = () => {
       const response = await fetch(`${apiUrl}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include', // Essencial para o gerenciamento de cookies
+        credentials: 'include',
         body: JSON.stringify({ email, senha }),
       });
 
@@ -54,11 +55,17 @@ const Login = () => {
       <div className="card">
         {/* Lado esquerdo */}
         <div className="card-body">
-          <h2>Posto Mercado</h2>
+          
+          {/* Container para Ícone e Título */}
+          <div className="brand-container">
+            <Fuel size={40} color="#38B2AC" strokeWidth={2.5} />
+            <h2>Posto Mercado</h2>
+          </div>
+          
           <p>Entre na sua conta</p>
 
           <form onSubmit={handleLogin}>
-            {error && <p style={{ color: 'red', fontWeight: 'bold' }}>{error}</p>}
+            {error && <p className="error-message">{error}</p>}
 
             <input 
               type="email" 
@@ -80,19 +87,15 @@ const Login = () => {
           </form>
         </div>
 
-        
-        {/* --- LADO DIREITO (CONTEÚDO RESTAURADO) --- */}
+        {/* Lado direito */}
         <div className="gradient-side">
-          <h2>Somos mais que uma empresa</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
+          <img 
+            src="/imagem.jpeg" 
+            alt="Login visual"
+            className="side-image"
+          />
         </div>
-        {/* --- FIM DO CONTEÚDO RESTAURADO --- */}
-        
+
       </div>
     </section>
   );
