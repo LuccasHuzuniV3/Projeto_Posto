@@ -1,27 +1,24 @@
-/* RESET GLOBAL */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* src/css/login.css */
 
-/* Garante que a página ocupe a tela toda sem margens */
-html, body, #root {
+/* RESET GLOBAL BÁSICO */
+/* Mantemos apenas margens zero para garantir que o login encoste nas bordas, 
+   mas REMOVEMOS a cor de fundo daqui para não afetar o Dashboard */
+html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: #121212;
-  overflow-x: hidden;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
 }
 
-/* Fundo geral da página de login */
+/* Fundo da página de LOGIN (Escopado apenas para esta classe) */
 .gradient-form {
-  background-color: #121212;
-  min-height: 100vh;
+  background-color: #121212; /* A cor escura fica SÓ AQUI agora */
+  width: 100%;
+  min-height: 100vh; /* Ocupa 100% da altura da janela */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  overflow-x: hidden;
 }
 
 /* Card principal */
@@ -36,15 +33,21 @@ html, body, #root {
   border-radius: 16px;
   overflow: hidden;
 
-  /* remove qualquer antialias branco da borda no Chrome/Opera */
-  mask-image: radial-gradient(#000 100%, #000 100%);
-  -webkit-mask-image: radial-gradient(#000 100%, #000 100%);
+  /* Máscara para limpar bordas no Chrome/Webkit */
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  
+  /* Borda Camuflada: borda sólida da cor do fundo do LOGIN (#121212) */
+  border: 1px solid #121212; 
+  
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
 
-  border: none;
-  box-shadow: none;
-
+  /* Renderização de GPU */
   transform: translateZ(0);
+  -webkit-transform: translateZ(0);
   backface-visibility: hidden;
+  
+  position: relative;
+  z-index: 1;
 }
 
 /* Responsividade */
